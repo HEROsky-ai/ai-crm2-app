@@ -1,14 +1,16 @@
 import { analyzeWithOpenRouter } from "./openrouter";
-import { buildPrompt } from "./prompt";
+import { analyzeWithGroq } from "./groq";
 
 export async function runAI(prompt) {
-  const provider = process.env.AI_PROVIDER;
+  const provider = process.env.AI_PROVIDER || 'groq';
 
   if (provider === "openrouter") {
     return analyzeWithOpenRouter(prompt);
+  } else if (provider === "groq") {
+    return analyzeWithGroq(prompt);
   }
 
-  throw new Error("No AI provider");
+  throw new Error(`不支持的 AI 提供商: ${provider}`);
 }
 
 export async function analyzeWithAI(data, promptTemplate = null) {
