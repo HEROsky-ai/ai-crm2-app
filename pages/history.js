@@ -38,6 +38,28 @@ export default function History() {
     }
   };
 
+  const handleDelete = async (e, id) => {
+    e.stopPropagation(); // Prevent toggling the card
+    if (!window.confirm("確定要刪除這筆紀錄嗎？此動作不可復原。")) {
+      return;
+    }
+
+    try {
+      const response = await fetch(`/api/records?id=${id}`, {
+        method: "DELETE",
+      });
+      const data = await response.json();
+      if (response.ok && data.success) {
+        setRecords((prev) => prev.filter((r) => r.id !== id));
+      } else {
+        alert("刪除失敗: " + (data.error || "未知錯誤"));
+      }
+    } catch (error) {
+      console.error("Delete failed:", error);
+      alert("刪除時發生錯誤");
+    }
+  };
+
   useEffect(() => {
     fetchRecords();
     // Auto-refresh every 30 seconds
@@ -167,6 +189,27 @@ export default function History() {
                       <span style={{ fontSize: "11px", color: "#999" }}>
                         {formatDate(record.created_at)}
                       </span>
+                      <button
+                        type="button"
+                        onClick={(e) => handleDelete(e, record.id)}
+                        style={{
+                          background: "none",
+                          border: "none",
+                          color: "#ff4d4f",
+                          cursor: "pointer",
+                          fontSize: "14px",
+                          padding: "4px",
+                          marginLeft: "8px",
+                          display: "flex",
+                          alignItems: "center",
+                          opacity: 0.7
+                        }}
+                        title="刪除紀錄"
+                        onMouseEnter={(e) => e.target.style.opacity = 1}
+                        onMouseLeave={(e) => e.target.style.opacity = 0.7}
+                      >
+                        🗑️
+                      </button>
                     </div>
 
                     <p style={{ margin: "8px 0", fontWeight: "bold", fontSize: "13px", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>

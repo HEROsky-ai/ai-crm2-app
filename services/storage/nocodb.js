@@ -53,3 +53,26 @@ export async function queryNocoDB(recordId) {
 
   return response.json();
 }
+
+export async function deleteFromNocoDB(recordId) {
+  if (!process.env.NOCODB_URL || !process.env.NOCODB_TOKEN) {
+    throw new Error("NocoDB configuration is missing");
+  }
+
+  const response = await fetchWithTimeout(
+    `${process.env.NOCODB_URL}/${recordId}`,
+    {
+      method: "DELETE",
+      headers: {
+        "xc-token": process.env.NOCODB_TOKEN,
+      },
+    },
+    15000
+  );
+
+  if (!response.ok) {
+    throw new Error(`NocoDB delete failed: ${response.status}`);
+  }
+
+  return response.json();
+}
