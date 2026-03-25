@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import MarkdownRenderer from "../components/MarkdownRenderer";
 import styles from "../styles/index.module.css";
 
 function getInitials(name) {
@@ -181,14 +182,14 @@ export default function History() {
                         >
                           {expandedId === `${record.id}-${index}` ? "▲ 收起報告" : "▼ 查看分析報告"}
                         </button>
-                        {expandedId === `${record.id}-${index}` && (
-                          <div style={{
-                            marginTop: "10px", whiteSpace: "pre-wrap", fontSize: "12px",
+                         {expandedId === `${record.id}-${index}` && (
+                          <div className={styles.markdownWrapper} style={{
+                            marginTop: "10px", fontSize: "12px",
                             lineHeight: "1.7", color: "#333",
                             background: "white", padding: "10px", borderRadius: "6px",
                             maxHeight: "400px", overflowY: "auto",
                           }}>
-                            {record.analysis.report_content}
+                            <MarkdownRenderer content={record.analysis.report_content} />
                           </div>
                         )}
                       </div>

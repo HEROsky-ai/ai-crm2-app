@@ -1,5 +1,6 @@
 import { useRef, useState } from "react";
 import Link from "next/link";
+import MarkdownRenderer from "../components/MarkdownRenderer";
 import styles from "../styles/index.module.css";
 
 export default function Home() {
@@ -278,8 +279,8 @@ export default function Home() {
 
           <div className={styles.analysisContent}>
             {typeof result.analysis === "object" && result.analysis.report_content ? (
-              <div style={{ whiteSpace: 'pre-wrap', lineHeight: '1.6', fontSize: '15px', color: '#333' }}>
-                {result.analysis.report_content}
+              <div className={styles.markdownWrapper}>
+                <MarkdownRenderer content={result.analysis.report_content} />
               </div>
             ) : typeof result.analysis === "object" ? (
               <div style={{ display: 'grid', gap: '12px' }}>

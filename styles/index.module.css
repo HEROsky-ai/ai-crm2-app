@@ -197,10 +197,41 @@
 
 .analysisContent {
   background: #f8fafc;
-  padding: 20px;
+  padding: 24px;
   border-radius: 12px;
   font-family: inherit;
-  white-space: pre-wrap;
   color: #334155;
-  line-height: 1.6;
+  line-height: 1.7;
+}
+
+.markdownWrapper {
+  font-size: 15px;
+}
+
+.markdownWrapper p {
+  margin-bottom: 1.2em;
+}
+
+.markdownWrapper strong {
+  color: #1e293b;
+  font-weight: 700;
+}
+
+.markdownWrapper ul {
+  padding-left: 20px;
+  margin-bottom: 1.5em;
+  list-style-type: none;
+}
+
+.markdownWrapper li {
+  margin-bottom: 0.8em;
+  position: relative;
+}
+
+.markdownWrapper li::before {
+  content: "•";
+  color: #4facfe;
+  font-weight: bold;
+  position: absolute;
+  left: -18px;
 }
