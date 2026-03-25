@@ -174,12 +174,22 @@ export default function Home() {
             cursor: 'pointer'
           }}
         >
-          <option value="default">預設模型 (openai/gpt-4o-mini)</option>
-          <option value="anthropic/claude-3.5-sonnet">Claude 3.5 Sonnet (最頂級邏輯・推薦)</option>
-          <option value="google/gemini-1.5-pro">Gemini 1.5 Pro (Google最強版)</option>
-          <option value="openai/gpt-4o">GPT-4o (最強全能版)</option>
-          <option value="meta-llama/llama-3-70b-instruct">Llama 3 70B (強大且快速)</option>
-          <option value="anthropic/claude-3-haiku">Claude 3 Haiku (極速便宜版)</option>
+          <option value="default">✨ 預設模型 (openai/gpt-4o-mini)</option>
+          
+          <optgroup label="💎 付費高級模型 (最聰明)">
+            <option value="anthropic/claude-3.5-sonnet">Claude 3.5 Sonnet (最強社交分析)</option>
+            <option value="google/gemini-1.5-pro">Gemini 1.5 Pro (Google最強大腦)</option>
+            <option value="openai/gpt-4o">GPT-4o (全能綜合實力)</option>
+            <option value="meta-llama/llama-3-70b-instruct">Llama 3 70B (強大且快速)</option>
+          </optgroup>
+
+          <optgroup label="🆓 免費暢玩模型 (:free)">
+            <option value="google/gemini-2.0-flash-exp:free">Gemini 2.0 Flash (免費王者・最推)</option>
+            <option value="deepseek/deepseek-chat:free">DeepSeek Chat (中文理解優異)</option>
+            <option value="meta-llama/llama-3-8b-instruct:free">Llama 3 8B (穩定免費版)</option>
+            <option value="mistralai/mistral-7b-instruct:free">Mistral 7B (快速精簡版)</option>
+            <option value="openrouter/auto">Auto (自動挑選免費模型)</option>
+          </optgroup>
         </select>
         <textarea
           value={chatText}
