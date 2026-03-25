@@ -73,7 +73,7 @@ describe("Home page", () => {
     fireEvent.click(screen.getByRole("button", { name: /開始深度分析/i }));
 
     await waitFor(() => {
-      expect(screen.getByText(/分析結果/i)).toBeInTheDocument();
+      expect(screen.getByText(/深度洞察報告/i)).toBeInTheDocument();
       expect(screen.getByText(/熱情/i)).toBeInTheDocument();
     });
   });

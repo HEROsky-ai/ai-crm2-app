@@ -97,9 +97,10 @@ describe("/api/analyze", () => {
 
     expect(res.status).toHaveBeenCalledWith(200);
     expect(res.json).toHaveBeenCalledWith({
-      completeness: "pending",
+      completeness: "待確認",
       analysis: {
-        raw: "plain text response",
+        report_content: "plain text response",
+        completeness: "待確認",
         ai_model_used: "gemini",
       },
     });

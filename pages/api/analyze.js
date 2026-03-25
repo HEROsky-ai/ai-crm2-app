@@ -48,16 +48,28 @@ export default async function handler(req, res) {
 
     let parsed;
     try {
-      // Sometimes models wrap json in markdown
-      const cleanJson = aiText.replace(/```[a-z]*\n?/ig, "").replace(/```/g, "").trim();
-      parsed = JSON.parse(cleanJson);
-    } catch {
-      parsed = { raw: aiText };
+      // 嘗試找尋第一個 { 並持續到最後一個 }
+      const firstBrace = aiText.indexOf('{');
+      const lastBrace = aiText.lastIndexOf('}');
+      if (firstBrace !== -1 && lastBrace !== -1 && lastBrace > firstBrace) {
+        const jsonContent = aiText.substring(firstBrace, lastBrace + 1);
+        parsed = JSON.parse(jsonContent);
+      } else {
+        // 退而求其次，嘗試原有的清洗方式
+        const cleanJson = aiText.replace(/```[a-z]*\n?/ig, "").replace(/```/g, "").trim();
+        parsed = JSON.parse(cleanJson);
+      }
+    } catch (parseError) {
+      console.warn("JSON parse failed, falling back to raw text:", parseError);
+      parsed = { 
+        report_content: aiText,
+        completeness: "待確認"
+      };
     }
     
     parsed.ai_model_used = aiModelUsed;
 
-    const completeness = parsed.completeness || "pending";
+    const completeness = parsed.completeness || "已分析";
     // AI may have inferred the contact name from chat; user-provided name takes priority
     const resolvedName = contact_name || parsed.contact_name || "";
     const imageDesc = Array.isArray(images) && images.length > 0 ? `\n(附帶 ${images.length} 張圖片)` : '';

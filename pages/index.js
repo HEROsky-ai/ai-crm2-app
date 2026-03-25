@@ -257,39 +257,41 @@ export default function Home() {
 
       {result && (
         <div className={styles.resultBox}>
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '15px' }}>
-            <h2 style={{ margin: 0 }}>🎯 分析結果</h2>
-            <button 
-              onClick={copyToClipboard}
-              style={{ 
-                background: 'none', 
-                border: 'none', 
-                color: '#4facfe', 
-                cursor: 'pointer',
-                fontWeight: '600'
-              }}
-            >
-              📋 複製內容
-            </button>
-          </div>
-          
-          <div className={`${styles.completenessBadge} ${styles['completeness' + result.completeness]}`}>
-            狀態：{result.completeness}
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
+            <h2 style={{ 
+              margin: 0, 
+              fontSize: '1.4rem', 
+              color: '#1e293b', 
+              display: 'flex', 
+              alignItems: 'center', 
+              gap: '8px' 
+            }}>
+              🎯 深度洞察報告
+            </h2>
+            <div className={`${styles.completenessBadge} ${styles['completeness' + result.completeness]}`} style={{ margin: 0 }}>
+              {result.completeness || "已完成"}
+            </div>
           </div>
 
-          <div className={styles.analysisContent}>
-            {typeof result.analysis === "object" && result.analysis.report_content ? (
+          <div className={styles.analysisContent} style={{ position: 'relative' }}>
+            {typeof result.analysis === "object" && (result.analysis.report_content || result.analysis.report) ? (
               <div className={styles.markdownWrapper}>
-                <MarkdownRenderer content={result.analysis.report_content} />
+                <MarkdownRenderer content={result.analysis.report_content || result.analysis.report} />
               </div>
             ) : typeof result.analysis === "object" ? (
-              <div style={{ display: 'grid', gap: '12px' }}>
-                {Object.entries(result.analysis).map(([key, value]) => (
-                  <div key={key} style={{ borderBottom: '1px solid #edf2f7', paddingBottom: '8px' }}>
-                    <strong style={{ color: '#4facfe', display: 'block', marginBottom: '4px' }}>{key}</strong>
-                    <div style={{ paddingLeft: '10px' }}>
+              <div style={{ display: 'grid', gap: '16px' }}>
+                {Object.entries(result.analysis)
+                  .filter(([key]) => !['ai_model_used', 'completeness', 'contact_name', 'raw'].includes(key))
+                  .map(([key, value]) => (
+                  <div key={key} style={{ borderBottom: '1px solid #f1f5f9', paddingBottom: '12px' }}>
+                    <strong style={{ color: '#64748b', display: 'block', marginBottom: '8px', fontSize: '13px', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+                      {key}
+                    </strong>
+                    <div style={{ paddingLeft: '4px', color: '#334155' }}>
                       {typeof value === 'object' ? (
-                        <pre style={{ margin: 0, fontSize: '13px' }}>{JSON.stringify(value, null, 2)}</pre>
+                        <pre style={{ margin: 0, fontSize: '13px', background: '#f8fafc', padding: '10px', borderRadius: '6px' }}>
+                          {JSON.stringify(value, null, 2)}
+                        </pre>
                       ) : (
                         String(value)
                       )}
@@ -298,8 +300,41 @@ export default function Home() {
                 ))}
               </div>
             ) : (
-              result.analysis
+              <div className={styles.markdownWrapper}>
+                <MarkdownRenderer content={String(result.analysis)} />
+              </div>
             )}
+            
+            <div style={{ 
+              marginTop: '24px', 
+              paddingTop: '16px', 
+              borderTop: '1px dashed #e2e8f0',
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'center'
+            }}>
+              <span style={{ fontSize: '12px', color: '#94a3b8' }}>
+                🤖 使用模型：<span style={{ color: '#4facfe', fontWeight: '600' }}>{result.analysis?.ai_model_used || "未知"}</span>
+              </span>
+              <button 
+                onClick={copyToClipboard}
+                style={{ 
+                  background: '#f1f5f9', 
+                  border: 'none', 
+                  color: '#64748b', 
+                  cursor: 'pointer',
+                  fontWeight: '600',
+                  padding: '6px 12px',
+                  borderRadius: '6px',
+                  fontSize: '12px',
+                  transition: 'all 0.2s'
+                }}
+                onMouseEnter={(e) => { e.target.style.background = '#e2e8f0'; e.target.style.color = '#1e293b'; }}
+                onMouseLeave={(e) => { e.target.style.background = '#f1f5f9'; e.target.style.color = '#64748b'; }}
+              >
+                📋 複製報告內容
+              </button>
+            </div>
           </div>
         </div>
       )}

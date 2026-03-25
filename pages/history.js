@@ -229,10 +229,32 @@ export default function History() {
                           <div className={styles.markdownWrapper} style={{
                             marginTop: "10px", fontSize: "12px",
                             lineHeight: "1.7", color: "#333",
-                            background: "white", padding: "10px", borderRadius: "6px",
-                            maxHeight: "400px", overflowY: "auto",
+                            background: "white", padding: "12px", borderRadius: "8px",
+                            maxHeight: "500px", overflowY: "auto",
+                            border: "1px solid #edf2f7"
                           }}>
-                            <MarkdownRenderer content={record.analysis.report_content} />
+                            {record.analysis?.report_content || record.analysis?.report ? (
+                              <MarkdownRenderer content={record.analysis.report_content || record.analysis.report} />
+                            ) : typeof record.analysis === 'object' ? (
+                              <div style={{ display: 'grid', gap: '10px' }}>
+                                {Object.entries(record.analysis)
+                                  .filter(([k]) => !['ai_model_used', 'completeness', 'contact_name', 'raw'].includes(k))
+                                  .map(([k, v]) => (
+                                    <div key={k}>
+                                      <strong style={{ color: '#4facfe', fontSize: '11px', textTransform: 'uppercase' }}>{k}</strong>
+                                      <div style={{ fontSize: '12px', marginTop: '2px' }}>
+                                        {typeof v === 'object' ? JSON.stringify(v) : String(v)}
+                                      </div>
+                                    </div>
+                                  ))}
+                              </div>
+                            ) : (
+                              <MarkdownRenderer content={String(record.analysis)} />
+                            )}
+                            
+                            <div style={{ marginTop: '15px', paddingTop: '8px', borderTop: '1px solid #f1f5f9', fontSize: '10px', color: '#999', textAlign: 'right' }}>
+                              🤖 {record.analysis?.ai_model_used || "未知模型"}
+                            </div>
                           </div>
                         )}
                       </div>
