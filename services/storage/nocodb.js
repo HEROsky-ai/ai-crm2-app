@@ -60,18 +60,21 @@ export async function deleteFromNocoDB(recordId) {
   }
 
   const response = await fetchWithTimeout(
-    `${process.env.NOCODB_URL}/${recordId}`,
+    process.env.NOCODB_URL,
     {
       method: "DELETE",
       headers: {
         "xc-token": process.env.NOCODB_TOKEN,
+        "Content-Type": "application/json",
       },
+      body: JSON.stringify([{ Id: recordId }]),
     },
     15000
   );
 
   if (!response.ok) {
-    throw new Error(`NocoDB delete failed: ${response.status}`);
+    const errorData = await response.json().catch(() => ({}));
+    throw new Error(errorData.message || `NocoDB delete failed: ${response.status}`);
   }
 
   return response.json();
