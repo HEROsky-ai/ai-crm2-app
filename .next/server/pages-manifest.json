@@ -3,7 +3,5 @@
   "/_error": "pages/_error.js",
   "/_document": "pages/_document.js",
   "/": "pages/index.js",
-  "/history": "pages/history.js",
-  "/api/records": "pages/api/records.js",
-  "/api/analyze": "pages/api/analyze.js"
+  "/history": "pages/history.js"
 }

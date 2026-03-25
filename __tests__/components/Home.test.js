@@ -49,6 +49,7 @@ describe("Home page", () => {
             chat_text: "Hello World",
             images: [],
             contact_name: "",
+            ai_model_id: "default",
           }),
         })
       );

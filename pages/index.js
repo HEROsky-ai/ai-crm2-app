@@ -9,6 +9,7 @@ export default function Home() {
   const [images, setImages] = useState([]);
   const [chatText, setChatText] = useState("");
   const [contactName, setContactName] = useState("");
+  const [selectedModel, setSelectedModel] = useState("default");
   const fileInputRef = useRef(null);
   const MAX_IMAGES = 15;
 
@@ -96,6 +97,7 @@ export default function Home() {
           chat_text: chatText,
           images,
           contact_name: contactName,
+          ai_model_id: selectedModel,
         }),
       });
 
@@ -157,6 +159,28 @@ export default function Home() {
             boxSizing: 'border-box',
           }}
         />
+        <select
+          value={selectedModel}
+          onChange={(e) => setSelectedModel(e.target.value)}
+          style={{
+            width: '100%',
+            padding: '10px 14px',
+            marginBottom: '10px',
+            borderRadius: '8px',
+            border: '1px solid #d0d7de',
+            fontSize: '14px',
+            boxSizing: 'border-box',
+            backgroundColor: '#fff',
+            cursor: 'pointer'
+          }}
+        >
+          <option value="default">預設模型 (openai/gpt-4o-mini)</option>
+          <option value="anthropic/claude-3.5-sonnet">Claude 3.5 Sonnet (最頂級邏輯・推薦)</option>
+          <option value="google/gemini-1.5-pro">Gemini 1.5 Pro (Google最強版)</option>
+          <option value="openai/gpt-4o">GPT-4o (最強全能版)</option>
+          <option value="meta-llama/llama-3-70b-instruct">Llama 3 70B (強大且快速)</option>
+          <option value="anthropic/claude-3-haiku">Claude 3 Haiku (極速便宜版)</option>
+        </select>
         <textarea
           value={chatText}
           onChange={(event) => setChatText(event.target.value)}

@@ -63,7 +63,7 @@ describe("/api/analyze", () => {
     await handler(req, res);
 
     expect(buildPrompt).toHaveBeenCalledWith("Hello", [], "");
-    expect(runAI).toHaveBeenCalledWith("built-prompt");
+    expect(runAI).toHaveBeenCalledWith("built-prompt", "default");
     expect(saveRecord).toHaveBeenCalledWith(
       expect.objectContaining({
         姓名: "",

@@ -8,7 +8,7 @@ export default async function handler(req, res) {
   }
 
   try {
-    const { chat_text = "", images = [], contact_name = "" } = req.body || {};
+    const { chat_text = "", images = [], contact_name = "", ai_model_id = "default" } = req.body || {};
 
     if (!chat_text.trim() && (!Array.isArray(images) || images.length === 0)) {
       return res.status(400).json({ error: "Please provide chat text or images" });
@@ -19,7 +19,7 @@ export default async function handler(req, res) {
     let aiText;
     let aiModelUsed = "unknown";
     try {
-      const rawResult = await runAI(prompt);
+      const rawResult = await runAI(prompt, ai_model_id);
       if (typeof rawResult === "object" && rawResult !== null && rawResult.text) {
         aiText = rawResult.text;
         aiModelUsed = rawResult.modelUsed || "openrouter/fallback";

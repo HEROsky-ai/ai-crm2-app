@@ -1,6 +1,6 @@
 import { fetchWithTimeout } from "../../lib/fetchWithTimeout";
 
-export async function analyzeWithOpenRouter(promptInput) {
+export async function analyzeWithOpenRouter(promptInput, modelOverride = "default") {
   try {
     const apiKey = process.env.OPENROUTER_API_KEY;
 
@@ -35,7 +35,7 @@ export async function analyzeWithOpenRouter(promptInput) {
       content = typeof promptInput === "string" ? promptInput : JSON.stringify(promptInput);
     }
 
-    const baseModel = process.env.OPENROUTER_MODEL || "openai/gpt-4o-mini";
+    const baseModel = (modelOverride !== "default" ? modelOverride : process.env.OPENROUTER_MODEL) || "openai/gpt-4o-mini";
     const fallbackModels = [
       "anthropic/claude-3-haiku",
       "google/gemini-1.5-flash",

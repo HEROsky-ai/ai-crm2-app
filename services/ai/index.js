@@ -3,11 +3,11 @@ import { analyzeWithGroq } from "./groq";
 import { analyzeWithGemini } from "./gemini";
 import { buildPrompt } from "../prompt";
 
-export async function runAI(prompt) {
+export async function runAI(prompt, modelOverride = "default") {
   const provider = (process.env.AI_PROVIDER || "gemini").toLowerCase();
 
   if (provider === "openrouter") {
-    return analyzeWithOpenRouter(prompt);
+    return analyzeWithOpenRouter(prompt, modelOverride);
   }
 
   if (provider === "groq") {
