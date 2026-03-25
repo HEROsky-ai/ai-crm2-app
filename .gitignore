@@ -26,3 +26,10 @@ yarn-error.log*
 # OS
 .DS_Store
 Thumbs.db
+.vercel
+
+# Test Outputs
+test_*.txt
+test_*.json
+records_test.json
+home_*.txt

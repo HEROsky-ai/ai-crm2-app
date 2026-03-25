@@ -1,25 +1,32 @@
 import { analyzeWithOpenRouter } from "./openrouter";
 import { analyzeWithGroq } from "./groq";
+import { analyzeWithGemini } from "./gemini";
 import { buildPrompt } from "../prompt";
 
 export async function runAI(prompt) {
-  const provider = process.env.AI_PROVIDER || 'groq';
+  const provider = (process.env.AI_PROVIDER || "gemini").toLowerCase();
 
   if (provider === "openrouter") {
     return analyzeWithOpenRouter(prompt);
-  } else if (provider === "groq") {
+  }
+
+  if (provider === "groq") {
     return analyzeWithGroq(prompt);
   }
 
-  throw new Error(`不支持的 AI 提供商: ${provider}`);
+  if (provider === "gemini") {
+    return analyzeWithGemini(prompt);
+  }
+
+  throw new Error(`Unsupported AI provider: ${provider}`);
 }
 
 export async function analyzeWithAI(data, promptTemplate = null) {
   try {
-    // 構建或使用自定義提示詞
-    const prompt = promptTemplate || buildPrompt(data);
-
-    // 調用 AI
+    const chatText =
+      typeof data === "string" ? data : data?.chat_text ?? data?.chat ?? "";
+    const images = Array.isArray(data?.images) ? data.images : [];
+    const prompt = promptTemplate || buildPrompt(chatText, images);
     const response = await runAI(prompt);
 
     return {
@@ -27,8 +34,8 @@ export async function analyzeWithAI(data, promptTemplate = null) {
       timestamp: new Date().toISOString(),
     };
   } catch (error) {
-    throw new Error(`AI 分析失敗: ${error.message}`);
+    throw new Error(`AI analysis failed: ${error.message}`);
   }
 }
 
-export { analyzeWithOpenRouter, analyzeWithGroq, buildPrompt };
+export { analyzeWithOpenRouter, analyzeWithGroq, analyzeWithGemini, buildPrompt };

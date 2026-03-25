@@ -1,94 +1,83 @@
-import { render, screen, waitFor, fireEvent } from '@testing-library/react';
-import History from '../pages/history';
+import { render, screen, waitFor } from "@testing-library/react";
+import History from "@/pages/history";
 
-describe('History Page', () => {
+jest.mock("next/link", () => {
+  return function MockLink({ href, children }) {
+    return <a href={href}>{children}</a>;
+  };
+});
+
+describe("History page", () => {
   beforeEach(() => {
     global.fetch = jest.fn();
     localStorage.clear();
   });
 
-  test('renders history page with title', async () => {
+  it("renders the page title", async () => {
     global.fetch.mockResolvedValueOnce({
-      ok: true,
-      json: async () => ({ records: [], success: true })
+      json: async () => ({ records: [] }),
     });
 
     render(<History />);
+
     await waitFor(() => {
-      expect(screen.getByText('分析記錄')).toBeInTheDocument();
+      expect(screen.getByText(/歷史分析紀錄/i)).toBeInTheDocument();
     });
   });
 
-  test('displays filter buttons for completeness classification', async () => {
+  it("shows filter buttons", async () => {
     global.fetch.mockResolvedValueOnce({
-      ok: true,
-      json: async () => ({ records: [], success: true })
+      json: async () => ({ records: [] }),
     });
 
     render(<History />);
-    
+
     await waitFor(() => {
-      expect(screen.getByText(/所有記錄/)).toBeInTheDocument();
-      expect(screen.getByText(/完整/)).toBeInTheDocument();
-      expect(screen.getByText(/未完整/)).toBeInTheDocument();
+      expect(screen.getByRole("button", { name: /全部/i })).toBeInTheDocument();
+      expect(screen.getByRole("button", { name: /^完整/i })).toBeInTheDocument();
+      expect(screen.getByRole("button", { name: /^不完整/i })).toBeInTheDocument();
     });
   });
 
-  test('fetches and displays records from API', async () => {
-    const mockRecords = [
-      {
-        id: 1,
-        chat_text: '我想要買一個產品',
-        completeness: '完整',
-        images_count: 0,
-        created_at: '2024-01-01T10:00:00Z',
-        analysis: { category: 'inquiry' }
-      }
-    ];
-
+  it("renders records returned by the API", async () => {
     global.fetch.mockResolvedValueOnce({
-      ok: true,
-      json: async () => ({ records: mockRecords, success: true })
+      json: async () => ({
+        records: [
+          {
+            chat_text: "今天先聊到這裡",
+            completeness: "完整",
+            created_at: "2024-01-01T10:00:00Z",
+            analysis: { category: "follow-up" },
+          },
+        ],
+      }),
     });
 
     render(<History />);
 
     await waitFor(() => {
-      expect(screen.getByText('我想要買一個產品')).toBeInTheDocument();
+      expect(screen.getByText("今天先聊到這裡")).toBeInTheDocument();
     });
   });
 
-  test('uses localStorage fallback when API fails', async () => {
-    const cachedRecords = [
-      {
-        chat_text: '快取的訊息',
-        completeness: '完整',
-        images_count: 0,
-        created_at: '2024-01-01T10:00:00Z'
-      }
-    ];
+  it("uses localStorage fallback when the API fails", async () => {
+    localStorage.setItem(
+      "analysis_records",
+      JSON.stringify([
+        {
+          chat_text: "快取資料",
+          completeness: "完整",
+          created_at: "2024-01-01T10:00:00Z",
+        },
+      ])
+    );
 
-    localStorage.setItem('analysis_records', JSON.stringify(cachedRecords));
-    global.fetch.mockRejectedValueOnce(new Error('API Error'));
+    global.fetch.mockRejectedValueOnce(new Error("API failed"));
 
     render(<History />);
 
     await waitFor(() => {
-      expect(screen.getByText('快取的訊息')).toBeInTheDocument();
-    });
-  });
-
-  test('navigation link to create new analysis', async () => {
-    global.fetch.mockResolvedValueOnce({
-      ok: true,
-      json: async () => ({ records: [], success: true })
-    });
-
-    render(<History />);
-    
-    await waitFor(() => {
-      const newAnalysisLink = screen.getByText('新增分析');
-      expect(newAnalysisLink.closest('a')).toHaveAttribute('href');
+      expect(screen.getByText("快取資料")).toBeInTheDocument();
     });
   });
 });

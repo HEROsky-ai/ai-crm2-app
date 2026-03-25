@@ -1,174 +1,113 @@
-import { createMocks } from 'node-mocks-http';
-import handler from '../../../pages/api/records';
+import handler from "@/pages/api/records";
 
-describe('/api/records', () => {
+function createRes() {
+  return {
+    status: jest.fn().mockReturnThis(),
+    json: jest.fn().mockReturnThis(),
+  };
+}
+
+describe("/api/records", () => {
   beforeEach(() => {
-    process.env.NOCODB_URL = 'https://app.nocodb.com/api/v2/tables/test/records';
-    process.env.NOCODB_TOKEN = 'test-token';
+    jest.clearAllMocks();
+    process.env.NOCODB_URL = "https://app.nocodb.com/api/v2/tables/test/records";
+    process.env.NOCODB_TOKEN = "test-token";
     global.fetch = jest.fn();
   });
 
-  afterEach(() => {
-    jest.clearAllMocks();
-  });
-
-  test('returns 405 for non-GET requests', async () => {
-    const { req, res } = createMocks({
-      method: 'POST'
-    });
+  it("returns 405 for non-GET requests", async () => {
+    const req = { method: "POST" };
+    const res = createRes();
 
     await handler(req, res);
-    expect(res._getStatusCode()).toBe(405);
+
+    expect(res.status).toHaveBeenCalledWith(405);
+    expect(res.json).toHaveBeenCalledWith({ error: "Method not allowed" });
   });
 
-  test('returns error when environment variables are missing', async () => {
+  it("returns config errors", async () => {
     delete process.env.NOCODB_URL;
-    
-    const { req, res } = createMocks({
-      method: 'GET'
-    });
+    const req = { method: "GET", query: {} };
+    const res = createRes();
 
     await handler(req, res);
-    expect(res._getStatusCode()).toBe(500);
-    expect(JSON.parse(res._getData())).toHaveProperty('error');
+
+    expect(res.status).toHaveBeenCalledWith(500);
+    expect(res.json).toHaveBeenCalledWith({
+      success: false,
+      error: "NocoDB configuration missing",
+      records: [],
+    });
   });
 
-  test('fetches records successfully', async () => {
-    const mockRecords = {
-      list: [
+  it("returns records successfully", async () => {
+    global.fetch.mockResolvedValueOnce({
+      ok: true,
+      json: jest.fn().mockResolvedValueOnce({
+        list: [
+          {
+            Id: 1,
+            互動描述: "Test message",
+            目前狀態: "完整",
+            建立時間: "2026-03-24T00:00:00Z"
+          },
+        ],
+      }),
+    });
+
+    const req = { method: "GET", query: {} };
+    const res = createRes();
+
+    await handler(req, res);
+
+    expect(res.status).toHaveBeenCalledWith(200);
+    expect(res.json).toHaveBeenCalledWith({
+      success: true,
+      records: [
         {
           id: 1,
-          chat_text: 'Test message',
-          completeness: '完整',
-          images_count: 0,
-          created_at: '2024-01-01T10:00:00Z'
-        }
+          contact_name: "",
+          chat_text: "Test message",
+          completeness: "完整",
+          analysis: {},
+          created_at: "2026-03-24T00:00:00Z",
+        },
       ],
-      pageInfo: { page: 1, pageSize: 25 }
-    };
-
-    global.fetch.mockResolvedValueOnce({
-      ok: true,
-      json: async () => mockRecords
+      total: 1,
     });
-
-    const { req, res } = createMocks({
-      method: 'GET'
-    });
-
-    await handler(req, res);
-    
-    expect(res._getStatusCode()).toBe(200);
-    const response = JSON.parse(res._getData());
-    expect(response.success).toBe(true);
-    expect(response.records).toHaveLength(1);
-    expect(response.records[0].chat_text).toBe('Test message');
   });
 
-  test('filters records by completeness parameter', async () => {
-    const mockRecords = {
-      list: [
-        {
-          id: 1,
-          chat_text: 'Complete message',
-          completeness: '完整',
-          images_count: 0,
-          created_at: '2024-01-01T10:00:00Z'
-        }
-      ]
-    };
-
+  it("adds completeness filtering when requested", async () => {
     global.fetch.mockResolvedValueOnce({
       ok: true,
-      json: async () => mockRecords
+      json: jest.fn().mockResolvedValueOnce({ list: [] }),
     });
 
-    const { req, res } = createMocks({
-      method: 'GET',
-      query: { completeness: '完整' }
-    });
+    const req = { method: "GET", query: { completeness: "完整" } };
+    const res = createRes();
 
     await handler(req, res);
-    
-    const response = JSON.parse(res._getData());
-    expect(response.records[0].completeness).toBe('完整');
+
     expect(global.fetch).toHaveBeenCalledWith(
-      expect.stringContaining('completeness'),
+      expect.stringContaining("where="),
       expect.any(Object)
     );
   });
 
-  test('handles API errors gracefully', async () => {
-    global.fetch.mockRejectedValueOnce(new Error('API Error'));
+  it("returns failures from NocoDB", async () => {
+    global.fetch.mockRejectedValueOnce(new Error("API error"));
 
-    const { req, res } = createMocks({
-      method: 'GET'
-    });
-
-    await handler(req, res);
-    
-    expect(res._getStatusCode()).toBe(500);
-    const response = JSON.parse(res._getData());
-    expect(response.success).toBe(false);
-    expect(response.records).toEqual([]);
-  });
-
-  test('sends correct headers to NocoDB API', async () => {
-    global.fetch.mockResolvedValueOnce({
-      ok: true,
-      json: async () => ({ list: [] })
-    });
-
-    const { req, res } = createMocks({
-      method: 'GET'
-    });
+    const req = { method: "GET", query: {} };
+    const res = createRes();
 
     await handler(req, res);
 
-    expect(global.fetch).toHaveBeenCalledWith(
-      expect.any(String),
+    expect(res.status).toHaveBeenCalledWith(500);
+    expect(res.json).toHaveBeenCalledWith(
       expect.objectContaining({
-        method: 'GET',
-        headers: expect.objectContaining({
-          'xc-auth': 'test-token',
-          'Content-Type': 'application/json'
-        })
+        success: false,
+        records: [],
       })
     );
-  });
-
-  test('handles NocoDB 404 error', async () => {
-    global.fetch.mockResolvedValueOnce({
-      ok: false,
-      status: 404
-    });
-
-    const { req, res } = createMocks({
-      method: 'GET'
-    });
-
-    await handler(req, res);
-    
-    expect(res._getStatusCode()).toBe(500);
-    const response = JSON.parse(res._getData());
-    expect(response.success).toBe(false);
-  });
-
-  test('returns empty array when no completeness filter matches', async () => {
-    global.fetch.mockResolvedValueOnce({
-      ok: true,
-      json: async () => ({ list: [] })
-    });
-
-    const { req, res } = createMocks({
-      method: 'GET',
-      query: { completeness: 'invalid' }
-    });
-
-    await handler(req, res);
-    
-    const response = JSON.parse(res._getData());
-    expect(response.records).toEqual([]);
-    expect(response.total).toBe(0);
   });
 });

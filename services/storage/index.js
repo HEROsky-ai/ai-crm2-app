@@ -1,4 +1,4 @@
-import { saveToNocoDB, queryNocoDB } from './nocodb';
+import { queryNocoDB, saveToNocoDB } from "./nocodb";
 
 export async function saveRecord(data) {
   return saveToNocoDB(data);
@@ -12,19 +12,17 @@ export async function storeResult(inputData, analysisResult) {
       timestamp: analysisResult.timestamp,
     };
 
-    const result = await saveRecord(record);
-    return result;
+    return await saveRecord(record);
   } catch (error) {
-    throw new Error(`儲存結果失敗: ${error.message}`);
+    throw new Error(`Failed to store result: ${error.message}`);
   }
 }
 
 export async function getResult(recordId) {
   try {
-    const result = await queryNocoDB(recordId);
-    return result;
+    return await queryNocoDB(recordId);
   } catch (error) {
-    throw new Error(`獲取結果失敗: ${error.message}`);
+    throw new Error(`Failed to get result: ${error.message}`);
   }
 }
 

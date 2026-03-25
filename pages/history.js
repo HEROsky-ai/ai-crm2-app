@@ -1,26 +1,34 @@
-import { useEffect, useState } from 'react';
-import Link from 'next/link';
-import styles from '../styles/index.module.css';
+import { useEffect, useState } from "react";
+import Link from "next/link";
+import styles from "../styles/index.module.css";
+
+function getInitials(name) {
+  if (!name || name === "未知聯絡人") return "?";
+  return name.trim().charAt(0).toUpperCase();
+}
+
+function avatarColor(name) {
+  const colors = ["#4facfe", "#43e97b", "#f857a6", "#fa8231", "#a55eea", "#00d2d3"];
+  if (!name) return colors[0];
+  const code = [...name].reduce((acc, c) => acc + c.charCodeAt(0), 0);
+  return colors[code % colors.length];
+}
 
 export default function History() {
   const [records, setRecords] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [filter, setFilter] = useState('all'); // 'all', 'complete', 'incomplete'
-
-  useEffect(() => {
-    fetchRecords();
-  }, []);
+  const [filter, setFilter] = useState("all");
+  const [expandedId, setExpandedId] = useState(null);
 
   const fetchRecords = async () => {
     try {
       setLoading(true);
-      const response = await fetch('/api/records');
+      const response = await fetch("/api/records");
       const data = await response.json();
       setRecords(data.records || []);
     } catch (error) {
-      console.error('Failed to fetch records:', error);
-      // 離線模式 - 從 localStorage 讀取
-      const cached = localStorage.getItem('analysis_records');
+      console.error("Failed to fetch records:", error);
+      const cached = localStorage.getItem("analysis_records");
       if (cached) {
         setRecords(JSON.parse(cached));
       }
@@ -29,141 +37,165 @@ export default function History() {
     }
   };
 
-  const filteredRecords = records.filter(record => {
-    if (filter === 'all') return true;
-    if (filter === 'complete') return record.completeness === '完整';
-    if (filter === 'incomplete') return record.completeness === '未完整';
+  useEffect(() => {
+    fetchRecords();
+    // Auto-refresh every 30 seconds
+    const interval = setInterval(fetchRecords, 30000);
+    return () => clearInterval(interval);
+  }, []);
+
+  const filteredRecords = records.filter((record) => {
+    if (filter === "all") return true;
+    if (filter === "complete") return record.completeness === "完整";
+    if (filter === "incomplete") return record.completeness === "不完整";
     return true;
   });
 
+  // Group by contact_name
+  const grouped = filteredRecords.reduce((acc, record) => {
+    const name = record.contact_name || "未知聯絡人";
+    if (!acc[name]) acc[name] = [];
+    acc[name].push(record);
+    return acc;
+  }, {});
+
+  // Compute Model Usage Stats
+  const modelStats = filteredRecords.reduce((acc, record) => {
+    const model = record.analysis?.ai_model_used || "未知 (早期紀錄)";
+    acc[model] = (acc[model] || 0) + 1;
+    return acc;
+  }, {});
+
   const formatDate = (dateString) => {
-    const date = new Date(dateString);
-    return date.toLocaleString('zh-TW');
+    if (!dateString) return "未知時間";
+    return new Date(dateString).toLocaleString("zh-TW");
   };
 
   return (
     <div className={styles.container}>
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
-        <h1>分析記錄</h1>
-        <Link href="/">
-          <button style={{ padding: '8px 16px', backgroundColor: '#4a90e2', color: 'white', border: 'none', borderRadius: '4px', cursor: 'pointer' }}>
-            新增分析
+      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "20px" }}>
+        <h1>📋 歷史分析紀錄</h1>
+        <div style={{ display: "flex", gap: "10px", alignItems: "center" }}>
+          <button
+            type="button"
+            onClick={fetchRecords}
+            style={{ padding: "6px 14px", borderRadius: "6px", border: "1px solid #4facfe", color: "#4facfe", background: "transparent", cursor: "pointer", fontSize: "13px" }}
+          >
+            🔄 重新整理
           </button>
-        </Link>
+          <Link href="/">返回分析頁</Link>
+        </div>
       </div>
 
-      {/* 篩選按鈕 */}
-      <div style={{ marginBottom: '20px', display: 'flex', gap: '10px' }}>
-        <button
-          onClick={() => setFilter('all')}
-          style={{
-            padding: '8px 16px',
-            backgroundColor: filter === 'all' ? '#4a90e2' : '#d9d9d9',
-            color: filter === 'all' ? 'white' : '#666',
-            border: 'none',
-            borderRadius: '4px',
-            cursor: 'pointer'
-          }}
-        >
-          所有記錄 ({records.length})
+      <div style={{ marginBottom: "20px", display: "flex", gap: "10px" }}>
+        <button type="button" onClick={() => setFilter("all")}
+          style={{ padding: "6px 14px", borderRadius: "20px", border: "none", background: filter === "all" ? "#4facfe" : "#eee", color: filter === "all" ? "#fff" : "#333", cursor: "pointer" }}>
+          全部 ({records.length})
         </button>
-        <button
-          onClick={() => setFilter('complete')}
-          style={{
-            padding: '8px 16px',
-            backgroundColor: filter === 'complete' ? '#52c41a' : '#d9d9d9',
-            color: filter === 'complete' ? 'white' : '#666',
-            border: 'none',
-            borderRadius: '4px',
-            cursor: 'pointer'
-          }}
-        >
-          ✓ 完整 ({records.filter(r => r.completeness === '完整').length})
+        <button type="button" onClick={() => setFilter("complete")}
+          style={{ padding: "6px 14px", borderRadius: "20px", border: "none", background: filter === "complete" ? "#52c41a" : "#eee", color: filter === "complete" ? "#fff" : "#333", cursor: "pointer" }}>
+          完整 ({records.filter((r) => r.completeness === "完整").length})
         </button>
-        <button
-          onClick={() => setFilter('incomplete')}
-          style={{
-            padding: '8px 16px',
-            backgroundColor: filter === 'incomplete' ? '#faad14' : '#d9d9d9',
-            color: filter === 'incomplete' ? 'white' : '#666',
-            border: 'none',
-            borderRadius: '4px',
-            cursor: 'pointer'
-          }}
-        >
-          ✗ 未完整 ({records.filter(r => r.completeness === '未完整').length})
+        <button type="button" onClick={() => setFilter("incomplete")}
+          style={{ padding: "6px 14px", borderRadius: "20px", border: "none", background: filter === "incomplete" ? "#faad14" : "#eee", color: filter === "incomplete" ? "#fff" : "#333", cursor: "pointer" }}>
+          不完整 ({records.filter((r) => r.completeness === "不完整").length})
         </button>
       </div>
 
-      {/* 記錄列表 */}
+      <div style={{ marginBottom: "20px", padding: "12px", background: "#f0f2f5", borderRadius: "8px" }}>
+        <strong style={{ fontSize: "14px", color: "#333" }}>🤖 AI 模型使用統計：</strong>
+        <div style={{ display: "flex", gap: "10px", marginTop: "10px", flexWrap: "wrap" }}>
+          {Object.entries(modelStats).map(([model, count]) => (
+            <span key={model} style={{ background: "#fff", padding: "4px 12px", borderRadius: "12px", fontSize: "12px", border: "1px solid #d9d9d9", color: "#555" }}>
+              {model}: <strong style={{ color: "#1890ff" }}>{count}</strong> 次
+            </span>
+          ))}
+        </div>
+      </div>
+
       {loading ? (
-        <p>加載中...</p>
+        <p>載入中...</p>
       ) : filteredRecords.length === 0 ? (
-        <p style={{ textAlign: 'center', color: '#999' }}>
-          {filter === 'all' ? '沒有記錄' : '該分類沒有記錄'}
+        <p style={{ textAlign: "center", color: "#999" }}>
+          {filter === "all" ? "目前沒有分析紀錄" : "這個篩選條件沒有資料"}
         </p>
       ) : (
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', gap: '15px' }}>
-          {filteredRecords.map((record, idx) => (
-            <div
-              key={idx}
-              style={{
-                border: '1px solid #ddd',
-                borderRadius: '8px',
-                padding: '15px',
-                backgroundColor: record.completeness === '完整' ? '#f6ffed' : '#fffbe6',
-                borderLeft: `4px solid ${record.completeness === '完整' ? '#52c41a' : '#faad14'}`
-              }}
-            >
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'start', marginBottom: '10px' }}>
-                <span
-                  style={{
-                    display: 'inline-block',
-                    padding: '4px 12px',
-                    borderRadius: '4px',
-                    backgroundColor: record.completeness === '完整' ? '#52c41a' : '#faad14',
-                    color: 'white',
-                    fontSize: '12px',
-                    fontWeight: 'bold'
-                  }}
-                >
-                  {record.completeness === '完整' ? '✓ 完整' : '✗ 未完整'}
-                </span>
-                {record.images_count > 0 && (
-                  <span style={{ fontSize: '12px', color: '#999' }}>
-                    🖼️ {record.images_count} 張圖
-                  </span>
-                )}
+        <div style={{ display: "flex", flexDirection: "column", gap: "32px" }}>
+          {Object.entries(grouped).map(([contactName, contactRecords]) => (
+            <div key={contactName}>
+              {/* Contact Header */}
+              <div style={{ display: "flex", alignItems: "center", gap: "12px", marginBottom: "12px" }}>
+                <div style={{
+                  width: "44px", height: "44px",
+                  borderRadius: "50%",
+                  background: avatarColor(contactName),
+                  display: "flex", alignItems: "center", justifyContent: "center",
+                  color: "#fff", fontWeight: "700", fontSize: "18px",
+                  flexShrink: 0,
+                }}>
+                  {getInitials(contactName)}
+                </div>
+                <div>
+                  <div style={{ fontSize: "16px", fontWeight: "700", color: "#222" }}>{contactName}</div>
+                  <div style={{ fontSize: "12px", color: "#888" }}>{contactRecords.length} 筆分析紀錄</div>
+                </div>
               </div>
 
-              <p style={{ margin: '10px 0', fontWeight: 'bold', fontSize: '14px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
-                {record.chat_text || '（無文字內容）'}
-              </p>
-
-              <p style={{ margin: '10px 0', fontSize: '12px', color: '#666' }}>
-                {formatDate(record.created_at || record.timestamp)}
-              </p>
-
-              {record.analysis && (
-                <details style={{ marginTop: '10px', fontSize: '12px' }}>
-                  <summary style={{ cursor: 'pointer', color: '#4a90e2', fontWeight: 'bold' }}>
-                    查看分析詳情
-                  </summary>
-                  <pre
+              {/* Records */}
+              <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))", gap: "12px" }}>
+                {contactRecords.map((record, index) => (
+                  <div
+                    key={`${record.created_at || record.id || index}`}
                     style={{
-                      marginTop: '10px',
-                      background: 'white',
-                      padding: '10px',
-                      borderRadius: '4px',
-                      overflow: 'auto',
-                      maxHeight: '300px',
-                      fontSize: '11px'
+                      border: "1px solid #ddd",
+                      borderRadius: "10px",
+                      padding: "14px",
+                      backgroundColor: record.completeness === "完整" ? "#f6ffed" : "#fffbe6",
+                      borderLeft: `4px solid ${record.completeness === "完整" ? "#52c41a" : "#faad14"}`,
                     }}
                   >
-                    {typeof record.analysis === 'string' ? record.analysis : JSON.stringify(record.analysis, null, 2)}
-                  </pre>
-                </details>
-              )}
+                    <div style={{ display: "flex", justifyContent: "space-between", alignItems: "start", marginBottom: "8px" }}>
+                      <span style={{
+                        display: "inline-block", padding: "3px 10px",
+                        borderRadius: "4px",
+                        backgroundColor: record.completeness === "完整" ? "#52c41a" : "#faad14",
+                        color: "white", fontSize: "11px", fontWeight: "bold",
+                      }}>
+                        {record.completeness || "待確認"}
+                      </span>
+                      <span style={{ fontSize: "11px", color: "#999" }}>
+                        {formatDate(record.created_at)}
+                      </span>
+                    </div>
+
+                    <p style={{ margin: "8px 0", fontWeight: "bold", fontSize: "13px", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
+                      {record.chat_text || "無文字內容"}
+                    </p>
+
+                    {record.analysis?.report_content && (
+                      <div>
+                        <button
+                          type="button"
+                          onClick={() => setExpandedId(expandedId === `${record.id}-${index}` ? null : `${record.id}-${index}`)}
+                          style={{ background: "none", border: "none", color: "#4a90e2", fontSize: "12px", cursor: "pointer", fontWeight: "bold", padding: "0" }}
+                        >
+                          {expandedId === `${record.id}-${index}` ? "▲ 收起報告" : "▼ 查看分析報告"}
+                        </button>
+                        {expandedId === `${record.id}-${index}` && (
+                          <div style={{
+                            marginTop: "10px", whiteSpace: "pre-wrap", fontSize: "12px",
+                            lineHeight: "1.7", color: "#333",
+                            background: "white", padding: "10px", borderRadius: "6px",
+                            maxHeight: "400px", overflowY: "auto",
+                          }}>
+                            {record.analysis.report_content}
+                          </div>
+                        )}
+                      </div>
+                    )}
+                  </div>
+                ))}
+              </div>
             </div>
           ))}
         </div>

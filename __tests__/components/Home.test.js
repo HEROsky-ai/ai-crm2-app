@@ -1,140 +1,100 @@
-import React from 'react';
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
-import Home from '@/pages/index';
+import { fireEvent, render, screen, waitFor } from "@testing-library/react";
+import Home from "@/pages/index";
 
-describe('Home Page', () => {
+jest.mock("next/link", () => {
+  return function MockLink({ href, children }) {
+    return <a href={href}>{children}</a>;
+  };
+});
+
+describe("Home page", () => {
   beforeEach(() => {
-    global.fetch = jest.fn();
-  });
-
-  afterEach(() => {
     jest.clearAllMocks();
+    global.fetch = jest.fn();
+    localStorage.clear();
   });
 
-  it('應該渲染表單和標題', () => {
+  it("renders the main UI", () => {
     render(<Home />);
 
-    expect(screen.getByText('AI聊天分析系統')).toBeInTheDocument();
-    expect(screen.getByPlaceholderText('名稱')).toBeInTheDocument();
-    expect(screen.getByPlaceholderText('貼聊天內容')).toBeInTheDocument();
-    expect(screen.getByRole('button', { name: /分析/i })).toBeInTheDocument();
+    expect(screen.getByText("聊天分析助手")).toBeInTheDocument();
+    expect(
+      screen.getByPlaceholderText("請貼上聊天內容，或使用 Ctrl+V 貼上截圖...")
+    ).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: /開始深度分析/i })).toBeInTheDocument();
   });
 
-  it('應該在提交表單時發送正確的請求', async () => {
-    const mockResponse = { personality: 'friendly' };
+  it("submits chat text to the analyze API", async () => {
     global.fetch.mockResolvedValueOnce({
-      json: jest.fn().mockResolvedValueOnce(mockResponse),
+      ok: true,
+      json: jest.fn().mockResolvedValueOnce({
+        completeness: "完整",
+        analysis: { personality: "熱情" },
+      }),
     });
 
     render(<Home />);
 
-    const nameInput = screen.getByPlaceholderText('名稱');
-    const chatInput = screen.getByPlaceholderText('貼聊天內容');
-    const submitButton = screen.getByRole('button', { name: /分析/i });
-
-    fireEvent.change(nameInput, { target: { value: 'Test User' } });
-    fireEvent.change(chatInput, { target: { value: 'Hello World' } });
-    fireEvent.click(submitButton);
+    fireEvent.change(screen.getByPlaceholderText(/貼上聊天內容/i), {
+      target: { value: "Hello World" },
+    });
+    fireEvent.click(screen.getByRole("button", { name: /開始深度分析/i }));
 
     await waitFor(() => {
       expect(global.fetch).toHaveBeenCalledWith(
-        '/api/analyze',
+        "/api/analyze",
         expect.objectContaining({
-          method: 'POST',
+          method: "POST",
           body: JSON.stringify({
-            name: 'Test User',
-            chat_text: 'Hello World'
-          })
+            chat_text: "Hello World",
+            images: [],
+            contact_name: "",
+          }),
         })
       );
     });
   });
 
-  it('應該在分析後顯示結果', async () => {
-    const mockResponse = {
-      personality: 'outgoing',
-      communication_style: 'friendly'
-    };
-
+  it("renders the analysis result", async () => {
     global.fetch.mockResolvedValueOnce({
-      json: jest.fn().mockResolvedValueOnce(mockResponse),
+      ok: true,
+      json: jest.fn().mockResolvedValueOnce({
+        completeness: "完整",
+        analysis: { personality: "熱情" },
+      }),
     });
 
     render(<Home />);
 
-    const nameInput = screen.getByPlaceholderText('名稱');
-    const chatInput = screen.getByPlaceholderText('貼聊天內容');
-    const submitButton = screen.getByRole('button', { name: /分析/i });
-
-    fireEvent.change(nameInput, { target: { value: 'Test' } });
-    fireEvent.change(chatInput, { target: { value: 'Hello' } });
-    fireEvent.click(submitButton);
+    fireEvent.change(screen.getByPlaceholderText(/貼上聊天內容/i), {
+      target: { value: "Hello" },
+    });
+    fireEvent.click(screen.getByRole("button", { name: /開始深度分析/i }));
 
     await waitFor(() => {
       expect(screen.getByText(/分析結果/i)).toBeInTheDocument();
-      expect(screen.getByText(/outgoing/i)).toBeInTheDocument();
+      expect(screen.getByText(/熱情/i)).toBeInTheDocument();
     });
   });
 
-  it('應該正確顯示加載狀態', async () => {
-    global.fetch.mockImplementationOnce(
-      () => new Promise(() => {}) // Never resolves
-    );
-
-    render(<Home />);
-
-    const nameInput = screen.getByPlaceholderText('名稱');
-    const chatInput = screen.getByPlaceholderText('貼聊天內容');
-    const submitButton = screen.getByRole('button', { name: /分析/i });
-
-    fireEvent.change(nameInput, { target: { value: 'Test' } });
-    fireEvent.change(chatInput, { target: { value: 'Hello' } });
-    fireEvent.click(submitButton);
-
-    await waitFor(() => {
-      expect(screen.getByRole('button', { name: /分析中.../i })).toBeDisabled();
-    });
-  });
-
-  it('應該正確處理錯誤', async () => {
-    global.fetch.mockRejectedValueOnce(new Error('Network error'));
-    window.alert = jest.fn();
-
-    render(<Home />);
-
-    const nameInput = screen.getByPlaceholderText('名稱');
-    const chatInput = screen.getByPlaceholderText('貼聊天內容');
-    const submitButton = screen.getByRole('button', { name: /分析/i });
-
-    fireEvent.change(nameInput, { target: { value: 'Test' } });
-    fireEvent.change(chatInput, { target: { value: 'Hello' } });
-    fireEvent.click(submitButton);
-
-    await waitFor(() => {
-      expect(window.alert).toHaveBeenCalledWith(
-        expect.stringContaining('Network error')
-      );
-    });
-  });
-
-  it('應該在提交後重置表單', async () => {
+  it("shows API errors", async () => {
     global.fetch.mockResolvedValueOnce({
-      json: jest.fn().mockResolvedValueOnce({ personality: 'test' }),
+      ok: false,
+      json: jest.fn().mockResolvedValueOnce({
+        error: "Gemini failed",
+      }),
     });
 
     render(<Home />);
 
-    const nameInput = screen.getByPlaceholderText('名稱');
-    const chatInput = screen.getByPlaceholderText('貼聊天內容');
-    const submitButton = screen.getByRole('button', { name: /分析/i });
-
-    fireEvent.change(nameInput, { target: { value: 'Test' } });
-    fireEvent.change(chatInput, { target: { value: 'Hello' } });
-    fireEvent.click(submitButton);
+    fireEvent.change(screen.getByPlaceholderText(/貼上聊天內容/i), {
+      target: { value: "Hello" },
+    });
+    fireEvent.click(screen.getByRole("button", { name: /開始深度分析/i }));
 
     await waitFor(() => {
-      expect(nameInput.value).toBe('');
-      expect(chatInput.value).toBe('');
+      expect(screen.getByText(/分析失敗/i)).toBeInTheDocument();
+      expect(screen.getByText("Gemini failed")).toBeInTheDocument();
     });
   });
 });

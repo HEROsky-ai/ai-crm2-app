@@ -1,71 +1,94 @@
-jest.mock('@/services/ai/openrouter');
-jest.mock('@/services/prompt');
+jest.mock("@/services/ai/openrouter", () => ({
+  analyzeWithOpenRouter: jest.fn(),
+}));
 
-import { runAI, analyzeWithAI } from '@/services/ai';
-import { analyzeWithOpenRouter } from '@/services/ai/openrouter';
-import { buildPrompt } from '@/services/prompt';
+jest.mock("@/services/ai/groq", () => ({
+  analyzeWithGroq: jest.fn(),
+}));
 
-describe('AI Service', () => {
+jest.mock("@/services/ai/gemini", () => ({
+  analyzeWithGemini: jest.fn(),
+}));
+
+jest.mock("@/services/prompt", () => ({
+  buildPrompt: jest.fn(),
+}));
+
+import { analyzeWithGemini } from "@/services/ai/gemini";
+import { analyzeWithGroq } from "@/services/ai/groq";
+import { buildPrompt } from "@/services/prompt";
+import { analyzeWithAI, runAI } from "@/services/ai";
+
+describe("AI service", () => {
   beforeEach(() => {
     jest.clearAllMocks();
-    process.env.AI_PROVIDER = 'openrouter';
+    process.env.AI_PROVIDER = "gemini";
   });
 
-  describe('runAI', () => {
-    it('應該使用 OpenRouter 提供商', async () => {
-      analyzeWithOpenRouter.mockResolvedValueOnce('AI 響應');
+  describe("runAI", () => {
+    it("uses Gemini by default", async () => {
+      analyzeWithGemini.mockResolvedValueOnce("gemini-result");
 
-      const result = await runAI('測試提示詞');
+      const result = await runAI("test-prompt");
 
-      expect(result).toBe('AI 響應');
-      expect(analyzeWithOpenRouter).toHaveBeenCalledWith('測試提示詞');
+      expect(result).toBe("gemini-result");
+      expect(analyzeWithGemini).toHaveBeenCalledWith("test-prompt");
     });
 
-    it('當無效的提供商時應該拋出錯誤', async () => {
-      process.env.AI_PROVIDER = 'invalid';
+    it("supports Groq when configured", async () => {
+      process.env.AI_PROVIDER = "groq";
+      analyzeWithGroq.mockResolvedValueOnce("groq-result");
 
-      await expect(runAI('提示詞')).rejects.toThrow('No AI provider');
+      const result = await runAI("test-prompt");
+
+      expect(result).toBe("groq-result");
+      expect(analyzeWithGroq).toHaveBeenCalledWith("test-prompt");
+    });
+
+    it("throws for an unsupported provider", async () => {
+      process.env.AI_PROVIDER = "invalid";
+
+      await expect(runAI("test-prompt")).rejects.toThrow(
+        "Unsupported AI provider: invalid"
+      );
     });
   });
 
-  describe('analyzeWithAI', () => {
-    it('應該使用自動生成的 Prompt 進行分析', async () => {
-      const mockData = { chat: '測試' };
-      const mockPrompt = '構建的提示詞';
-      const mockAiResponse = '分析結果';
+  describe("analyzeWithAI", () => {
+    it("builds the prompt from chat text and images", async () => {
+      buildPrompt.mockReturnValueOnce("built-prompt");
+      analyzeWithGemini.mockResolvedValueOnce("analysis-text");
 
-      buildPrompt.mockReturnValueOnce(mockPrompt);
-      analyzeWithOpenRouter.mockResolvedValueOnce(mockAiResponse);
+      const result = await analyzeWithAI({
+        chat_text: "hello",
+        images: ["img-1"],
+      });
 
-      const result = await analyzeWithAI(mockData);
-
-      expect(result).toHaveProperty('analysis', mockAiResponse);
-      expect(result).toHaveProperty('timestamp');
-      expect(buildPrompt).toHaveBeenCalledWith(mockData);
+      expect(buildPrompt).toHaveBeenCalledWith("hello", ["img-1"]);
+      expect(result).toEqual(
+        expect.objectContaining({
+          analysis: "analysis-text",
+          timestamp: expect.any(String),
+        })
+      );
     });
 
-    it('應該使用自定義 Prompt 模板', async () => {
-      const mockData = { chat: '測試' };
-      const customPrompt = '自定義提示詞';
-      const mockAiResponse = '分析結果';
+    it("uses a custom prompt when provided", async () => {
+      analyzeWithGemini.mockResolvedValueOnce("analysis-text");
 
-      analyzeWithOpenRouter.mockResolvedValueOnce(mockAiResponse);
+      await analyzeWithAI({ chat_text: "hello" }, "custom-prompt");
 
-      const result = await analyzeWithAI(mockData, customPrompt);
-
-      expect(analyzeWithOpenRouter).toHaveBeenCalledWith(customPrompt);
       expect(buildPrompt).not.toHaveBeenCalled();
+      expect(analyzeWithGemini).toHaveBeenCalledWith("custom-prompt");
     });
 
-    it('應該返回帶時間戳的分析結果', async () => {
-      buildPrompt.mockReturnValueOnce('提示詞');
-      analyzeWithOpenRouter.mockResolvedValueOnce('結果');
+    it("wraps downstream failures", async () => {
+      buildPrompt.mockReturnValueOnce("built-prompt");
+      analyzeWithGemini.mockRejectedValueOnce(new Error("Gemini unavailable"));
 
-      const result = await analyzeWithAI({});
-
-      expect(result).toHaveProperty('analysis');
-      expect(result).toHaveProperty('timestamp');
-      expect(new Date(result.timestamp)).toBeInstanceOf(Date);
+      await expect(analyzeWithAI({ chat_text: "hello" })).rejects.toThrow(
+        "AI analysis failed: Gemini unavailable"
+      );
     });
   });
 });

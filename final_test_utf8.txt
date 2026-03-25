@@ -1,0 +1,1873 @@
+﻿
+> ai-crm-app@1.0.0 test
+> jest
+
+npm : FAIL __tests__/co
+mponents/Home.test.js
+位於 線路:1 字元:1
++ npm test > final_test
+.txt 2>&1 ; Get-Content
+ final_test.txt | Set-C
+on ...
++ ~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~
+    + CategoryInfo     
+         : NotSpecifi  
+  ed: (FAIL __tests_   
+ _/components/Home.    
+test.js:String) []    ,
+ RemoteException
+    + FullyQualifiedEr 
+   rorId : NativeComm  
+  andError
+ 
+  ??Home page ??renders
+ the main UI
+
+    TestingLibraryEleme
+ntError: Unable to find
+ an accessible element 
+with the role "button" 
+and name `/????/i`
+
+    Here are the access
+ible roles:
+
+      banner:
+
+      Name "":
+      [36m<header[39m
+        [33mclass[39m
+=[32m"headerContainer"
+[39m
+      [36m/>[39m
+
+      -----------------
+-----------------------
+----------
+      heading:
+
+      Name "?予???拇?":
+      [36m<h1[39m
+        [33mclass[39m
+=[32m"title"[39m
+      [36m/>[39m
+
+      -----------------
+-----------------------
+----------
+      link:
+
+      Name "?亦?甇瑕蝝??:
+      [36m<a[39m
+        [33mhref[39m=
+[32m"/history"[39m
+      [36m/>[39m
+
+      -----------------
+-----------------------
+----------
+      textbox:
+
+      Name "":
+      [36m<textarea[3
+9m
+        [33mclass[39m
+=[32m"textarea"[39m
+        [33mplaceholde
+r[39m=[32m"隢票銝?憭拙摰
+對??蝙??Ctrl+V 鞎潔??芸?...
+"[39m
+      [36m/>[39m
+
+      -----------------
+-----------------------
+----------
+      button:
+
+      Name "? 銝?? (
+0/15)":
+      [36m<button[39m
+        [33mclass[39m
+=[32m"uploadButton"[3
+9m
+        [33mtype[39m=
+[32m"button"[39m
+      [36m/>[39m
+
+      Name "?? ??瘛勗漲?
+?":
+      [36m<button[39m
+        [33mclass[39m
+=[32m"submitButton"[3
+9m
+        [33mdisabled[
+39m=[32m""[39m
+        [33mstyle[39m
+=[32m"flex: 1;"[39m
+        [33mtype[39m=
+[32m"submit"[39m
+      [36m/>[39m
+
+      -----------------
+-----------------------
+----------
+
+    Ignored nodes: comm
+ents, script, style
+    [36m<body>[39m
+      [36m<div>[39m
+        [36m<div[39m
+          [33mclass[3
+9m=[32m"container"[39
+m
+        [36m>[39m
+          [36m<header
+[39m
+            [33mclass
+[39m=[32m"headerContai
+ner"[39m
+          [36m>[39m
+            [36m<h1[3
+9m
+              [33mclas
+s[39m=[32m"title"[39
+m
+            [36m>[39m
+              [0m?予?
+??拇?[0m
+            [36m</h1>
+[39m
+            [36m<a[39
+m
+              [33mhref
+[39m=[32m"/history"[
+39m
+            [36m>[39m
+              [0m?亦?甇瑕
+蝝??[0m
+            [36m</a>[
+39m
+          [36m</header
+>[39m
+          [36m<form[3
+9m
+            [33mclass
+[39m=[32m"form"[39m
+          [36m>[39m
+            [36m<texta
+rea[39m
+              [33mclas
+s[39m=[32m"textarea"
+[39m
+              [33mplac
+eholder[39m=[32m"隢票銝
+?憭拙摰對??蝙??Ctrl+V 鞎潔?
+?芸?..."[39m
+            [36m/>[39
+m
+            [36m<div[
+39m
+              [33mstyl
+e[39m=[32m"display: f
+lex; gap: 15px;"[39m
+            [36m>[39m
+              [36m<but
+ton[39m
+                [33mcl
+ass[39m=[32m"uploadBu
+tton"[39m
+                [33mty
+pe[39m=[32m"button"[
+39m
+              [36m>[3
+9m
+                [0m? 
+銝?? ([0m
+                [0m0[
+0m
+                [0m/[
+0m
+                [0m15
+[0m
+                [0m)[
+0m
+              [36m</bu
+tton>[39m
+              [36m<inp
+ut[39m
+                [33mac
+cept[39m=[32m"image/*
+"[39m
+                [33mmu
+ltiple[39m=[32m""[39
+m
+                [33mst
+yle[39m=[32m"display:
+ none;"[39m
+                [33mty
+pe[39m=[32m"file"[39
+m
+              [36m/>[
+39m
+              [36m<but
+ton[39m
+                [33mcl
+ass[39m=[32m"submitBu
+tton"[39m
+                [33mdi
+sabled[39m=[32m""[39
+m
+                [33mst
+yle[39m=[32m"flex: 1;
+"[39m
+                [33mty
+pe[39m=[32m"submit"[
+39m
+              [36m>[3
+9m
+                [0m?? 
+??瘛勗漲??[0m
+              [36m</bu
+tton>[39m
+            [36m</div>
+[39m
+          [36m</form>
+[39m
+        [36m</div>[39
+m
+      [36m</div>[39m
+    [36m</body>[39m
+
+    [0m [90m 22 |[39
+m       screen[33m.[3
+9mgetByPlaceholderText(
+[32m"隢票銝?憭拙摰對??蝙??
+Ctrl+V 鞎潔??芸?..."[39m)
+     [90m 23 |[39m   
+  )[33m.[39mtoBeInThe
+Document()[33m;[39m
+    [31m[1m>[22m[39
+m[90m 24 |[39m     ex
+pect(screen[33m.[39mg
+etByRole([32m"button"
+[39m[33m,[39m { name
+[33m:[39m [35m/????
+/i[39m }))[33m.[39mt
+oBeInTheDocument()[33m
+;[39m
+     [90m    |[39m   
+                [31m[
+1m^[22m[39m
+     [90m 25 |[39m   
+})[33m;[39m
+     [90m 26 |[39m
+     [90m 27 |[39m   
+it([32m"submits chat t
+ext to the analyze API"
+[39m[33m,[39m [36ma
+sync[39m () [33m=>[3
+9m {[0m
+
+      at Object.getElem
+entError (node_modules/
+@testing-library/dom/di
+st/config.js:37:19)
+      at node_modules/@
+testing-library/dom/dis
+t/query-helpers.js:76:3
+8
+      at node_modules/@
+testing-library/dom/dis
+t/query-helpers.js:52:1
+7
+      at node_modules/@
+testing-library/dom/dis
+t/query-helpers.js:95:1
+9
+      at Object.getByRo
+le (__tests__/component
+s/Home.test.js:24:19)
+
+  ??Home page ??submits
+ chat text to the analy
+ze API
+
+    TestingLibraryEleme
+ntError: Unable to find
+ an accessible element 
+with the role "button" 
+and name `/????/i`
+
+    Here are the access
+ible roles:
+
+      banner:
+
+      Name "":
+      [36m<header[39m
+        [33mclass[39m
+=[32m"headerContainer"
+[39m
+      [36m/>[39m
+
+      -----------------
+-----------------------
+----------
+      heading:
+
+      Name "?予???拇?":
+      [36m<h1[39m
+        [33mclass[39m
+=[32m"title"[39m
+      [36m/>[39m
+
+      -----------------
+-----------------------
+----------
+      link:
+
+      Name "?亦?甇瑕蝝??:
+      [36m<a[39m
+        [33mhref[39m=
+[32m"/history"[39m
+      [36m/>[39m
+
+      -----------------
+-----------------------
+----------
+      textbox:
+
+      Name "":
+      [36m<textarea[3
+9m
+        [33mclass[39m
+=[32m"textarea"[39m
+        [33mplaceholde
+r[39m=[32m"隢票銝?憭拙摰
+對??蝙??Ctrl+V 鞎潔??芸?...
+"[39m
+      [36m/>[39m
+
+      -----------------
+-----------------------
+----------
+      button:
+
+      Name "? 銝?? (
+0/15)":
+      [36m<button[39m
+        [33mclass[39m
+=[32m"uploadButton"[3
+9m
+        [33mtype[39m=
+[32m"button"[39m
+      [36m/>[39m
+
+      Name "?? ??瘛勗漲?
+?":
+      [36m<button[39m
+        [33mclass[39m
+=[32m"submitButton"[3
+9m
+        [33mstyle[39m
+=[32m"flex: 1;"[39m
+        [33mtype[39m=
+[32m"submit"[39m
+      [36m/>[39m
+
+      -----------------
+-----------------------
+----------
+
+    Ignored nodes: comm
+ents, script, style
+    [36m<body>[39m
+      [36m<div>[39m
+        [36m<div[39m
+          [33mclass[3
+9m=[32m"container"[39
+m
+        [36m>[39m
+          [36m<header
+[39m
+            [33mclass
+[39m=[32m"headerContai
+ner"[39m
+          [36m>[39m
+            [36m<h1[3
+9m
+              [33mclas
+s[39m=[32m"title"[39
+m
+            [36m>[39m
+              [0m?予?
+??拇?[0m
+            [36m</h1>
+[39m
+            [36m<a[39
+m
+              [33mhref
+[39m=[32m"/history"[
+39m
+            [36m>[39m
+              [0m?亦?甇瑕
+蝝??[0m
+            [36m</a>[
+39m
+          [36m</header
+>[39m
+          [36m<form[3
+9m
+            [33mclass
+[39m=[32m"form"[39m
+          [36m>[39m
+            [36m<texta
+rea[39m
+              [33mclas
+s[39m=[32m"textarea"
+[39m
+              [33mplac
+eholder[39m=[32m"隢票銝
+?憭拙摰對??蝙??Ctrl+V 鞎潔?
+?芸?..."[39m
+            [36m>[39m
+              [0mHello
+ World[0m
+            [36m</text
+area>[39m
+            [36m<div[
+39m
+              [33mstyl
+e[39m=[32m"display: f
+lex; gap: 15px;"[39m
+            [36m>[39m
+              [36m<but
+ton[39m
+                [33mcl
+ass[39m=[32m"uploadBu
+tton"[39m
+                [33mty
+pe[39m=[32m"button"[
+39m
+              [36m>[3
+9m
+                [0m? 
+銝?? ([0m
+                [0m0[
+0m
+                [0m/[
+0m
+                [0m15
+[0m
+                [0m)[
+0m
+              [36m</bu
+tton>[39m
+              [36m<inp
+ut[39m
+                [33mac
+cept[39m=[32m"image/*
+"[39m
+                [33mmu
+ltiple[39m=[32m""[39
+m
+                [33mst
+yle[39m=[32m"display:
+ none;"[39m
+                [33mty
+pe[39m=[32m"file"[39
+m
+              [36m/>[
+39m
+              [36m<but
+ton[39m
+                [33mcl
+ass[39m=[32m"submitBu
+tton"[39m
+                [33mst
+yle[39m=[32m"flex: 1;
+"[39m
+                [33mty
+pe[39m=[32m"submit"[
+39m
+              [36m>[3
+9m
+                [0m?? 
+??瘛勗漲??[0m
+              [36m</bu
+tton>[39m
+            [36m</div>
+[39m
+          [36m</form>
+[39m
+        [36m</div>[39
+m
+      [36m</div>[39m
+    [36m</body>[39m
+
+    [0m [90m 39 |[39
+m       target[33m:[3
+9m { value[33m:[39m 
+[32m"Hello World"[39m 
+}[33m,[39m
+     [90m 40 |[39m   
+  })[33m;[39m
+    [31m[1m>[22m[39
+m[90m 41 |[39m     fi
+reEvent[33m.[39mclick
+(screen[33m.[39mgetBy
+Role([32m"button"[39m
+[33m,[39m { name[33m
+:[39m [35m/????/i[
+39m }))[33m;[39m
+     [90m    |[39m   
+                       
+  [31m[1m^[22m[39m
+     [90m 42 |[39m
+     [90m 43 |[39m   
+  [36mawait[39m waitF
+or(() [33m=>[39m {
+     [90m 44 |[39m   
+    expect(global[33m.
+[39mfetch)[33m.[39mt
+oHaveBeenCalledWith([0
+m
+
+      at Object.getElem
+entError (node_modules/
+@testing-library/dom/di
+st/config.js:37:19)
+      at node_modules/@
+testing-library/dom/dis
+t/query-helpers.js:76:3
+8
+      at node_modules/@
+testing-library/dom/dis
+t/query-helpers.js:52:1
+7
+      at node_modules/@
+testing-library/dom/dis
+t/query-helpers.js:95:1
+9
+      at Object.getByRo
+le (__tests__/component
+s/Home.test.js:41:28)
+
+  ??Home page ??renders
+ the analysis result
+
+    TestingLibraryEleme
+ntError: Unable to find
+ an accessible element 
+with the role "button" 
+and name `/????/i`
+
+    Here are the access
+ible roles:
+
+      banner:
+
+      Name "":
+      [36m<header[39m
+        [33mclass[39m
+=[32m"headerContainer"
+[39m
+      [36m/>[39m
+
+      -----------------
+-----------------------
+----------
+      heading:
+
+      Name "?予???拇?":
+      [36m<h1[39m
+        [33mclass[39m
+=[32m"title"[39m
+      [36m/>[39m
+
+      -----------------
+-----------------------
+----------
+      link:
+
+      Name "?亦?甇瑕蝝??:
+      [36m<a[39m
+        [33mhref[39m=
+[32m"/history"[39m
+      [36m/>[39m
+
+      -----------------
+-----------------------
+----------
+      textbox:
+
+      Name "":
+      [36m<textarea[3
+9m
+        [33mclass[39m
+=[32m"textarea"[39m
+        [33mplaceholde
+r[39m=[32m"隢票銝?憭拙摰
+對??蝙??Ctrl+V 鞎潔??芸?...
+"[39m
+      [36m/>[39m
+
+      -----------------
+-----------------------
+----------
+      button:
+
+      Name "? 銝?? (
+0/15)":
+      [36m<button[39m
+        [33mclass[39m
+=[32m"uploadButton"[3
+9m
+        [33mtype[39m=
+[32m"button"[39m
+      [36m/>[39m
+
+      Name "?? ??瘛勗漲?
+?":
+      [36m<button[39m
+        [33mclass[39m
+=[32m"submitButton"[3
+9m
+        [33mstyle[39m
+=[32m"flex: 1;"[39m
+        [33mtype[39m=
+[32m"submit"[39m
+      [36m/>[39m
+
+      -----------------
+-----------------------
+----------
+
+    Ignored nodes: comm
+ents, script, style
+    [36m<body>[39m
+      [36m<div>[39m
+        [36m<div[39m
+          [33mclass[3
+9m=[32m"container"[39
+m
+        [36m>[39m
+          [36m<header
+[39m
+            [33mclass
+[39m=[32m"headerContai
+ner"[39m
+          [36m>[39m
+            [36m<h1[3
+9m
+              [33mclas
+s[39m=[32m"title"[39
+m
+            [36m>[39m
+              [0m?予?
+??拇?[0m
+            [36m</h1>
+[39m
+            [36m<a[39
+m
+              [33mhref
+[39m=[32m"/history"[
+39m
+            [36m>[39m
+              [0m?亦?甇瑕
+蝝??[0m
+            [36m</a>[
+39m
+          [36m</header
+>[39m
+          [36m<form[3
+9m
+            [33mclass
+[39m=[32m"form"[39m
+          [36m>[39m
+            [36m<texta
+rea[39m
+              [33mclas
+s[39m=[32m"textarea"
+[39m
+              [33mplac
+eholder[39m=[32m"隢票銝
+?憭拙摰對??蝙??Ctrl+V 鞎潔?
+?芸?..."[39m
+            [36m>[39m
+              [0mHello
+[0m
+            [36m</text
+area>[39m
+            [36m<div[
+39m
+              [33mstyl
+e[39m=[32m"display: f
+lex; gap: 15px;"[39m
+            [36m>[39m
+              [36m<but
+ton[39m
+                [33mcl
+ass[39m=[32m"uploadBu
+tton"[39m
+                [33mty
+pe[39m=[32m"button"[
+39m
+              [36m>[3
+9m
+                [0m? 
+銝?? ([0m
+                [0m0[
+0m
+                [0m/[
+0m
+                [0m15
+[0m
+                [0m)[
+0m
+              [36m</bu
+tton>[39m
+              [36m<inp
+ut[39m
+                [33mac
+cept[39m=[32m"image/*
+"[39m
+                [33mmu
+ltiple[39m=[32m""[39
+m
+                [33mst
+yle[39m=[32m"display:
+ none;"[39m
+                [33mty
+pe[39m=[32m"file"[39
+m
+              [36m/>[
+39m
+              [36m<but
+ton[39m
+                [33mcl
+ass[39m=[32m"submitBu
+tton"[39m
+                [33mst
+yle[39m=[32m"flex: 1;
+"[39m
+                [33mty
+pe[39m=[32m"submit"[
+39m
+              [36m>[3
+9m
+                [0m?? 
+??瘛勗漲??[0m
+              [36m</bu
+tton>[39m
+            [36m</div>
+[39m
+          [36m</form>
+[39m
+        [36m</div>[39
+m
+      [36m</div>[39m
+    [36m</body>[39m
+
+    [0m [90m 69 |[39
+m       target[33m:[3
+9m { value[33m:[39m 
+[32m"Hello"[39m }[33m
+,[39m
+     [90m 70 |[39m   
+  })[33m;[39m
+    [31m[1m>[22m[39
+m[90m 71 |[39m     fi
+reEvent[33m.[39mclick
+(screen[33m.[39mgetBy
+Role([32m"button"[39m
+[33m,[39m { name[33m
+:[39m [35m/????/i[
+39m }))[33m;[39m
+     [90m    |[39m   
+                       
+  [31m[1m^[22m[39m
+     [90m 72 |[39m
+     [90m 73 |[39m   
+  [36mawait[39m waitF
+or(() [33m=>[39m {
+     [90m 74 |[39m   
+    expect(screen[33m.
+[39mgetByText([32m"?
+?蝯?"[39m))[33m.[39m
+toBeInTheDocument()[33
+m;[39m[0m
+
+      at Object.getElem
+entError (node_modules/
+@testing-library/dom/di
+st/config.js:37:19)
+      at node_modules/@
+testing-library/dom/dis
+t/query-helpers.js:76:3
+8
+      at node_modules/@
+testing-library/dom/dis
+t/query-helpers.js:52:1
+7
+      at node_modules/@
+testing-library/dom/dis
+t/query-helpers.js:95:1
+9
+      at Object.getByRo
+le (__tests__/component
+s/Home.test.js:71:28)
+
+  ??Home page ??shows A
+PI errors
+
+    TestingLibraryEleme
+ntError: Unable to find
+ an accessible element 
+with the role "button" 
+and name `/????/i`
+
+    Here are the access
+ible roles:
+
+      banner:
+
+      Name "":
+      [36m<header[39m
+        [33mclass[39m
+=[32m"headerContainer"
+[39m
+      [36m/>[39m
+
+      -----------------
+-----------------------
+----------
+      heading:
+
+      Name "?予???拇?":
+      [36m<h1[39m
+        [33mclass[39m
+=[32m"title"[39m
+      [36m/>[39m
+
+      -----------------
+-----------------------
+----------
+      link:
+
+      Name "?亦?甇瑕蝝??:
+      [36m<a[39m
+        [33mhref[39m=
+[32m"/history"[39m
+      [36m/>[39m
+
+      -----------------
+-----------------------
+----------
+      textbox:
+
+      Name "":
+      [36m<textarea[3
+9m
+        [33mclass[39m
+=[32m"textarea"[39m
+        [33mplaceholde
+r[39m=[32m"隢票銝?憭拙摰
+對??蝙??Ctrl+V 鞎潔??芸?...
+"[39m
+      [36m/>[39m
+
+      -----------------
+-----------------------
+----------
+      button:
+
+      Name "? 銝?? (
+0/15)":
+      [36m<button[39m
+        [33mclass[39m
+=[32m"uploadButton"[3
+9m
+        [33mtype[39m=
+[32m"button"[39m
+      [36m/>[39m
+
+      Name "?? ??瘛勗漲?
+?":
+      [36m<button[39m
+        [33mclass[39m
+=[32m"submitButton"[3
+9m
+        [33mstyle[39m
+=[32m"flex: 1;"[39m
+        [33mtype[39m=
+[32m"submit"[39m
+      [36m/>[39m
+
+      -----------------
+-----------------------
+----------
+
+    Ignored nodes: comm
+ents, script, style
+    [36m<body>[39m
+      [36m<div>[39m
+        [36m<div[39m
+          [33mclass[3
+9m=[32m"container"[39
+m
+        [36m>[39m
+          [36m<header
+[39m
+            [33mclass
+[39m=[32m"headerContai
+ner"[39m
+          [36m>[39m
+            [36m<h1[3
+9m
+              [33mclas
+s[39m=[32m"title"[39
+m
+            [36m>[39m
+              [0m?予?
+??拇?[0m
+            [36m</h1>
+[39m
+            [36m<a[39
+m
+              [33mhref
+[39m=[32m"/history"[
+39m
+            [36m>[39m
+              [0m?亦?甇瑕
+蝝??[0m
+            [36m</a>[
+39m
+          [36m</header
+>[39m
+          [36m<form[3
+9m
+            [33mclass
+[39m=[32m"form"[39m
+          [36m>[39m
+            [36m<texta
+rea[39m
+              [33mclas
+s[39m=[32m"textarea"
+[39m
+              [33mplac
+eholder[39m=[32m"隢票銝
+?憭拙摰對??蝙??Ctrl+V 鞎潔?
+?芸?..."[39m
+            [36m>[39m
+              [0mHello
+[0m
+            [36m</text
+area>[39m
+            [36m<div[
+39m
+              [33mstyl
+e[39m=[32m"display: f
+lex; gap: 15px;"[39m
+            [36m>[39m
+              [36m<but
+ton[39m
+                [33mcl
+ass[39m=[32m"uploadBu
+tton"[39m
+                [33mty
+pe[39m=[32m"button"[
+39m
+              [36m>[3
+9m
+                [0m? 
+銝?? ([0m
+                [0m0[
+0m
+                [0m/[
+0m
+                [0m15
+[0m
+                [0m)[
+0m
+              [36m</bu
+tton>[39m
+              [36m<inp
+ut[39m
+                [33mac
+cept[39m=[32m"image/*
+"[39m
+                [33mmu
+ltiple[39m=[32m""[39
+m
+                [33mst
+yle[39m=[32m"display:
+ none;"[39m
+                [33mty
+pe[39m=[32m"file"[39
+m
+              [36m/>[
+39m
+              [36m<but
+ton[39m
+                [33mcl
+ass[39m=[32m"submitBu
+tton"[39m
+                [33mst
+yle[39m=[32m"flex: 1;
+"[39m
+                [33mty
+pe[39m=[32m"submit"[
+39m
+              [36m>[3
+9m
+                [0m?? 
+??瘛勗漲??[0m
+              [36m</bu
+tton>[39m
+            [36m</div>
+[39m
+          [36m</form>
+[39m
+        [36m</div>[39
+m
+      [36m</div>[39m
+    [36m</body>[39m
+
+    [0m [90m 90 |[39
+m       target[33m:[3
+9m { value[33m:[39m 
+[32m"Hello"[39m }[33m
+,[39m
+     [90m 91 |[39m   
+  })[33m;[39m
+    [31m[1m>[22m[39
+m[90m 92 |[39m     fi
+reEvent[33m.[39mclick
+(screen[33m.[39mgetBy
+Role([32m"button"[39m
+[33m,[39m { name[33m
+:[39m [35m/????/i[
+39m }))[33m;[39m
+     [90m    |[39m   
+                       
+  [31m[1m^[22m[39m
+     [90m 93 |[39m
+     [90m 94 |[39m   
+  [36mawait[39m waitF
+or(() [33m=>[39m {
+     [90m 95 |[39m   
+    expect(screen[33m.
+[39mgetByText([32m"?
+?憭望?"[39m))[33m.[39m
+toBeInTheDocument()[33
+m;[39m[0m
+
+      at Object.getElem
+entError (node_modules/
+@testing-library/dom/di
+st/config.js:37:19)
+      at node_modules/@
+testing-library/dom/dis
+t/query-helpers.js:76:3
+8
+      at node_modules/@
+testing-library/dom/dis
+t/query-helpers.js:52:1
+7
+      at node_modules/@
+testing-library/dom/dis
+t/query-helpers.js:95:1
+9
+      at Object.getByRo
+le (__tests__/component
+s/Home.test.js:92:28)
+
+PASS __tests__/api/reco
+rds.test.js
+  ??Console
+
+    console.error
+      Failed to fetch r
+ecords: Error: API erro
+r
+          at Object.<an
+onymous> (C:\Users\1120
+804\Desktop\amway?予撠?
+\__tests__\api\records.
+test.js:94:40)
+          at Promise.th
+en.completed (C:\Users\
+1120804\Desktop\amway?
+予撠?\node_modules\jest-
+circus\build\utils.js:2
+98:28)
+          at new Promis
+e (<anonymous>)
+          at callAsyncC
+ircusFn (C:\Users\11208
+04\Desktop\amway?予撠?\
+node_modules\jest-circu
+s\build\utils.js:231:10
+)
+          at _callCircu
+sTest (C:\Users\1120804
+\Desktop\amway?予撠?\no
+de_modules\jest-circus\
+build\run.js:316:40)
+          at _runTest (
+C:\Users\1120804\Deskto
+p\amway?予撠?\node_modu
+les\jest-circus\build\r
+un.js:252:3)
+          at _runTestsF
+orDescribeBlock (C:\Use
+rs\1120804\Desktop\amwa
+y?予撠?\node_modules\je
+st-circus\build\run.js:
+126:9)
+          at _runTestsF
+orDescribeBlock (C:\Use
+rs\1120804\Desktop\amwa
+y?予撠?\node_modules\je
+st-circus\build\run.js:
+121:9)
+          at run (C:\Us
+ers\1120804\Desktop\amw
+ay?予撠?\node_modules\j
+est-circus\build\run.js
+:71:3)
+          at runAndTran
+sformResultsToJestForma
+t (C:\Users\1120804\Des
+ktop\amway?予撠?\node_m
+odules\jest-circus\buil
+d\legacy-code-todo-rewr
+ite\jestAdapterInit.js:
+122:21)
+          at jestAdapte
+r (C:\Users\1120804\Des
+ktop\amway?予撠?\node_m
+odules\jest-circus\buil
+d\legacy-code-todo-rewr
+ite\jestAdapter.js:79:1
+9)
+          at runTestInt
+ernal (C:\Users\1120804
+\Desktop\amway?予撠?\no
+de_modules\jest-runner\
+build\runTest.js:367:16
+)
+          at runTest (C
+:\Users\1120804\Desktop
+\amway?予撠?\node_modul
+es\jest-runner\build\ru
+nTest.js:444:34)
+
+    [0m [90m 45 |[39
+m     })[33m;[39m
+     [90m 46 |[39m   
+} [36mcatch[39m (erro
+r) {
+    [31m[1m>[22m[39
+m[90m 47 |[39m     co
+nsole[33m.[39merror(
+[32m"Failed to fetch re
+cords:"[39m[33m,[39m
+ error)[33m;[39m
+     [90m    |[39m   
+          [31m[1m^[2
+2m[39m
+     [90m 48 |[39m   
+  [36mreturn[39m res
+[33m.[39mstatus([35m5
+00[39m)[33m.[39mjson
+({
+     [90m 49 |[39m   
+    success[33m:[39m 
+[36mfalse[39m[33m,[
+39m
+     [90m 50 |[39m   
+    error[33m:[39m er
+ror[33m.[39mmessage 
+[33m||[39m [32m"Faile
+d to fetch records"[39
+m[33m,[39m[0m
+
+      at error (pages/a
+pi/records.js:47:13)
+      at Object.<anonym
+ous> (__tests__/api/rec
+ords.test.js:99:5)
+
+PASS __tests__/api/anal
+yze.test.js
+  ??Console
+
+    console.error
+      AI request failed
+: Error: Gemini API rat
+e limit exceeded. Pleas
+e retry later.
+          at Object.<an
+onymous> (C:\Users\1120
+804\Desktop\amway?予撠?
+\__tests__\api\analyze.
+test.js:114:33)
+          at Promise.th
+en.completed (C:\Users\
+1120804\Desktop\amway?
+予撠?\node_modules\jest-
+circus\build\utils.js:2
+98:28)
+          at new Promis
+e (<anonymous>)
+          at callAsyncC
+ircusFn (C:\Users\11208
+04\Desktop\amway?予撠?\
+node_modules\jest-circu
+s\build\utils.js:231:10
+)
+          at _callCircu
+sTest (C:\Users\1120804
+\Desktop\amway?予撠?\no
+de_modules\jest-circus\
+build\run.js:316:40)
+          at _runTest (
+C:\Users\1120804\Deskto
+p\amway?予撠?\node_modu
+les\jest-circus\build\r
+un.js:252:3)
+          at _runTestsF
+orDescribeBlock (C:\Use
+rs\1120804\Desktop\amwa
+y?予撠?\node_modules\je
+st-circus\build\run.js:
+126:9)
+          at _runTestsF
+orDescribeBlock (C:\Use
+rs\1120804\Desktop\amwa
+y?予撠?\node_modules\je
+st-circus\build\run.js:
+121:9)
+          at run (C:\Us
+ers\1120804\Desktop\amw
+ay?予撠?\node_modules\j
+est-circus\build\run.js
+:71:3)
+          at runAndTran
+sformResultsToJestForma
+t (C:\Users\1120804\Des
+ktop\amway?予撠?\node_m
+odules\jest-circus\buil
+d\legacy-code-todo-rewr
+ite\jestAdapterInit.js:
+122:21)
+          at jestAdapte
+r (C:\Users\1120804\Des
+ktop\amway?予撠?\node_m
+odules\jest-circus\buil
+d\legacy-code-todo-rewr
+ite\jestAdapter.js:79:1
+9)
+          at runTestInt
+ernal (C:\Users\1120804
+\Desktop\amway?予撠?\no
+de_modules\jest-runner\
+build\runTest.js:367:16
+)
+          at runTest (C
+:\Users\1120804\Desktop
+\amway?予撠?\node_modul
+es\jest-runner\build\ru
+nTest.js:444:34)
+
+    [0m [90m 21 |[39
+m       aiText [33m=[
+39m [36mawait[39m run
+AI(prompt)[33m;[39m
+     [90m 22 |[39m   
+  } [36mcatch[39m (ai
+Error) {
+    [31m[1m>[22m[39
+m[90m 23 |[39m       
+console[33m.[39merror
+([32m"AI request faile
+d:"[39m[33m,[39m aiE
+rror)[33m;[39m
+     [90m    |[39m   
+            [31m[1m^
+[22m[39m
+     [90m 24 |[39m   
+    [36mlet[39m statu
+sCode [33m=[39m [35m
+500[39m[33m;[39m
+     [90m 25 |[39m
+     [90m 26 |[39m   
+    [36mif[39m (aiErr
+or[33m.[39mmessage[3
+3m?[39m[33m.[39mincl
+udes([32m"rate limit"
+[39m)) {[0m
+
+      at error (pages/a
+pi/analyze.js:23:15)
+      at Object.<anonym
+ous> (__tests__/api/ana
+lyze.test.js:116:5)
+
+    console.error
+      AI request failed
+: Error: Request timed 
+out after 30000ms
+          at Object.<an
+onymous> (C:\Users\1120
+804\Desktop\amway?予撠?
+\__tests__\api\analyze.
+test.js:132:33)
+          at Promise.th
+en.completed (C:\Users\
+1120804\Desktop\amway?
+予撠?\node_modules\jest-
+circus\build\utils.js:2
+98:28)
+          at new Promis
+e (<anonymous>)
+          at callAsyncC
+ircusFn (C:\Users\11208
+04\Desktop\amway?予撠?\
+node_modules\jest-circu
+s\build\utils.js:231:10
+)
+          at _callCircu
+sTest (C:\Users\1120804
+\Desktop\amway?予撠?\no
+de_modules\jest-circus\
+build\run.js:316:40)
+          at _runTest (
+C:\Users\1120804\Deskto
+p\amway?予撠?\node_modu
+les\jest-circus\build\r
+un.js:252:3)
+          at _runTestsF
+orDescribeBlock (C:\Use
+rs\1120804\Desktop\amwa
+y?予撠?\node_modules\je
+st-circus\build\run.js:
+126:9)
+          at _runTestsF
+orDescribeBlock (C:\Use
+rs\1120804\Desktop\amwa
+y?予撠?\node_modules\je
+st-circus\build\run.js:
+121:9)
+          at run (C:\Us
+ers\1120804\Desktop\amw
+ay?予撠?\node_modules\j
+est-circus\build\run.js
+:71:3)
+          at runAndTran
+sformResultsToJestForma
+t (C:\Users\1120804\Des
+ktop\amway?予撠?\node_m
+odules\jest-circus\buil
+d\legacy-code-todo-rewr
+ite\jestAdapterInit.js:
+122:21)
+          at jestAdapte
+r (C:\Users\1120804\Des
+ktop\amway?予撠?\node_m
+odules\jest-circus\buil
+d\legacy-code-todo-rewr
+ite\jestAdapter.js:79:1
+9)
+          at runTestInt
+ernal (C:\Users\1120804
+\Desktop\amway?予撠?\no
+de_modules\jest-runner\
+build\runTest.js:367:16
+)
+          at runTest (C
+:\Users\1120804\Desktop
+\amway?予撠?\node_modul
+es\jest-runner\build\ru
+nTest.js:444:34)
+
+    [0m [90m 21 |[39
+m       aiText [33m=[
+39m [36mawait[39m run
+AI(prompt)[33m;[39m
+     [90m 22 |[39m   
+  } [36mcatch[39m (ai
+Error) {
+    [31m[1m>[22m[39
+m[90m 23 |[39m       
+console[33m.[39merror
+([32m"AI request faile
+d:"[39m[33m,[39m aiE
+rror)[33m;[39m
+     [90m    |[39m   
+            [31m[1m^
+[22m[39m
+     [90m 24 |[39m   
+    [36mlet[39m statu
+sCode [33m=[39m [35m
+500[39m[33m;[39m
+     [90m 25 |[39m
+     [90m 26 |[39m   
+    [36mif[39m (aiErr
+or[33m.[39mmessage[3
+3m?[39m[33m.[39mincl
+udes([32m"rate limit"
+[39m)) {[0m
+
+      at error (pages/a
+pi/analyze.js:23:15)
+      at Object.<anonym
+ous> (__tests__/api/ana
+lyze.test.js:134:5)
+
+    console.error
+      Failed to save re
+cord: Error: save faile
+d
+          at Object.<an
+onymous> (C:\Users\1120
+804\Desktop\amway?予撠?
+\__tests__\api\analyze.
+test.js:148:38)
+          at Promise.th
+en.completed (C:\Users\
+1120804\Desktop\amway?
+予撠?\node_modules\jest-
+circus\build\utils.js:2
+98:28)
+          at new Promis
+e (<anonymous>)
+          at callAsyncC
+ircusFn (C:\Users\11208
+04\Desktop\amway?予撠?\
+node_modules\jest-circu
+s\build\utils.js:231:10
+)
+          at _callCircu
+sTest (C:\Users\1120804
+\Desktop\amway?予撠?\no
+de_modules\jest-circus\
+build\run.js:316:40)
+          at _runTest (
+C:\Users\1120804\Deskto
+p\amway?予撠?\node_modu
+les\jest-circus\build\r
+un.js:252:3)
+          at _runTestsF
+orDescribeBlock (C:\Use
+rs\1120804\Desktop\amwa
+y?予撠?\node_modules\je
+st-circus\build\run.js:
+126:9)
+          at _runTestsF
+orDescribeBlock (C:\Use
+rs\1120804\Desktop\amwa
+y?予撠?\node_modules\je
+st-circus\build\run.js:
+121:9)
+          at run (C:\Us
+ers\1120804\Desktop\amw
+ay?予撠?\node_modules\j
+est-circus\build\run.js
+:71:3)
+          at runAndTran
+sformResultsToJestForma
+t (C:\Users\1120804\Des
+ktop\amway?予撠?\node_m
+odules\jest-circus\buil
+d\legacy-code-todo-rewr
+ite\jestAdapterInit.js:
+122:21)
+          at jestAdapte
+r (C:\Users\1120804\Des
+ktop\amway?予撠?\node_m
+odules\jest-circus\buil
+d\legacy-code-todo-rewr
+ite\jestAdapter.js:79:1
+9)
+          at runTestInt
+ernal (C:\Users\1120804
+\Desktop\amway?予撠?\no
+de_modules\jest-runner\
+build\runTest.js:367:16
+)
+          at runTest (C
+:\Users\1120804\Desktop
+\amway?予撠?\node_modul
+es\jest-runner\build\ru
+nTest.js:444:34)
+
+    [0m [90m 59 |[39
+m       [36mawait[39m
+ saveRecord(recordData)
+[33m;[39m
+     [90m 60 |[39m   
+  } [36mcatch[39m (sa
+veError) {
+    [31m[1m>[22m[39
+m[90m 61 |[39m       
+console[33m.[39merror
+([32m"Failed to save r
+ecord:"[39m[33m,[39m
+ saveError)[33m;[39m
+     [90m    |[39m   
+            [31m[1m^
+[22m[39m
+     [90m 62 |[39m   
+  }
+     [90m 63 |[39m
+     [90m 64 |[39m   
+  [36mreturn[39m res
+[33m.[39mstatus([35m2
+00[39m)[33m.[39mjson
+({[0m
+
+      at error (pages/a
+pi/analyze.js:61:15)
+      at Object.<anonym
+ous> (__tests__/api/ana
+lyze.test.js:150:5)
+
+PASS __tests__/services
+/openrouter.test.js
+  ??Console
+
+    console.error
+      OpenRouter reques
+t failed: Error: Invali
+d OPENROUTER_API_KEY fo
+rmat
+          at analyzeWit
+hOpenRouter (C:\Users\1
+120804\Desktop\amway?予
+撠?\services\ai\openrou
+ter.js:12:13)
+          at Object.<an
+onymous> (C:\Users\1120
+804\Desktop\amway?予撠?
+\__tests__\services\ope
+nrouter.test.js:42:39)
+          at Promise.th
+en.completed (C:\Users\
+1120804\Desktop\amway?
+予撠?\node_modules\jest-
+circus\build\utils.js:2
+98:28)
+          at new Promis
+e (<anonymous>)
+          at callAsyncC
+ircusFn (C:\Users\11208
+04\Desktop\amway?予撠?\
+node_modules\jest-circu
+s\build\utils.js:231:10
+)
+          at _callCircu
+sTest (C:\Users\1120804
+\Desktop\amway?予撠?\no
+de_modules\jest-circus\
+build\run.js:316:40)
+          at _runTest (
+C:\Users\1120804\Deskto
+p\amway?予撠?\node_modu
+les\jest-circus\build\r
+un.js:252:3)
+          at _runTestsF
+orDescribeBlock (C:\Use
+rs\1120804\Desktop\amwa
+y?予撠?\node_modules\je
+st-circus\build\run.js:
+126:9)
+          at _runTestsF
+orDescribeBlock (C:\Use
+rs\1120804\Desktop\amwa
+y?予撠?\node_modules\je
+st-circus\build\run.js:
+121:9)
+          at run (C:\Us
+ers\1120804\Desktop\amw
+ay?予撠?\node_modules\j
+est-circus\build\run.js
+:71:3)
+          at runAndTran
+sformResultsToJestForma
+t (C:\Users\1120804\Des
+ktop\amway?予撠?\node_m
+odules\jest-circus\buil
+d\legacy-code-todo-rewr
+ite\jestAdapterInit.js:
+122:21)
+          at jestAdapte
+r (C:\Users\1120804\Des
+ktop\amway?予撠?\node_m
+odules\jest-circus\buil
+d\legacy-code-todo-rewr
+ite\jestAdapter.js:79:1
+9)
+          at runTestInt
+ernal (C:\Users\1120804
+\Desktop\amway?予撠?\no
+de_modules\jest-runner\
+build\runTest.js:367:16
+)
+          at runTest (C
+:\Users\1120804\Desktop
+\amway?予撠?\node_modul
+es\jest-runner\build\ru
+nTest.js:444:34)
+
+    [0m [90m 76 |[39
+m     [36mreturn[39m 
+aiContent[33m;[39m
+     [90m 77 |[39m   
+} [36mcatch[39m (erro
+r) {
+    [31m[1m>[22m[39
+m[90m 78 |[39m     co
+nsole[33m.[39merror(
+[32m"OpenRouter request
+ failed:"[39m[33m,[3
+9m error)[33m;[39m
+     [90m    |[39m   
+          [31m[1m^[2
+2m[39m
+     [90m 79 |[39m   
+  [36mthrow[39m error
+[33m;[39m
+     [90m 80 |[39m   
+}
+     [90m 81 |[39m }
+[0m
+
+      at error (service
+s/ai/openrouter.js:78:1
+3)
+      at Object.<anonym
+ous> (__tests__/service
+s/openrouter.test.js:42
+:39)
+
+    console.error
+      OpenRouter API er
+ror: { error: { message
+: 'unauthorized' } }
+
+    [0m [90m 62 |[39
+m
+     [90m 63 |[39m   
+  [36mif[39m ([33m!
+[39mres[33m.[39mok) {
+    [31m[1m>[22m[39
+m[90m 64 |[39m       
+console[33m.[39merror
+([32m"OpenRouter API e
+rror:"[39m[33m,[39m 
+data)[33m;[39m
+     [90m    |[39m   
+            [31m[1m^
+[22m[39m
+     [90m 65 |[39m   
+    [36mthrow[39m [3
+6mnew[39m [33mError[
+39m(
+     [90m 66 |[39m   
+      [32m`OpenRouter 
+API error (${res.status
+}): ${data.error?.messa
+ge || JSON.stringify(da
+ta)}`[39m
+     [90m 67 |[39m   
+    )[33m;[39m[0m
+
+      at error (service
+s/ai/openrouter.js:64:1
+5)
+      at Object.<anonym
+ous> (__tests__/service
+s/openrouter.test.js:56
+:5)
+
+    console.error
+      OpenRouter reques
+t failed: Error: OpenRo
+uter API error (401): u
+nauthorized
+          at analyzeWit
+hOpenRouter (C:\Users\1
+120804\Desktop\amway?予
+撠?\services\ai\openrou
+ter.js:65:13)
+          at Object.<an
+onymous> (C:\Users\1120
+804\Desktop\amway?予撠?
+\__tests__\services\ope
+nrouter.test.js:56:5)
+
+    [0m [90m 76 |[39
+m     [36mreturn[39m 
+aiContent[33m;[39m
+     [90m 77 |[39m   
+} [36mcatch[39m (erro
+r) {
+    [31m[1m>[22m[39
+m[90m 78 |[39m     co
+nsole[33m.[39merror(
+[32m"OpenRouter request
+ failed:"[39m[33m,[3
+9m error)[33m;[39m
+     [90m    |[39m   
+          [31m[1m^[2
+2m[39m
+     [90m 79 |[39m   
+  [36mthrow[39m error
+[33m;[39m
+     [90m 80 |[39m   
+}
+     [90m 81 |[39m }
+[0m
+
+      at error (service
+s/ai/openrouter.js:78:1
+3)
+      at Object.<anonym
+ous> (__tests__/service
+s/openrouter.test.js:56
+:5)
+
+PASS __tests__/services
+/storage.test.js
+PASS __tests__/services
+/prompt.test.js
+PASS __tests__/services
+/ai.test.js
+PASS __tests__/pages/hi
+story.test.js
+  ??Console
+
+    console.error
+      Failed to fetch r
+ecords: Error: API fail
+ed
+          at Object.<an
+onymous> (C:\Users\1120
+804\Desktop\amway?予撠?
+\__tests__\pages\histor
+y.test.js:75:40)
+          at Promise.th
+en.completed (C:\Users\
+1120804\Desktop\amway?
+予撠?\node_modules\jest-
+circus\build\utils.js:2
+98:28)
+          at new Promis
+e (<anonymous>)
+          at callAsyncC
+ircusFn (C:\Users\11208
+04\Desktop\amway?予撠?\
+node_modules\jest-circu
+s\build\utils.js:231:10
+)
+          at _callCircu
+sTest (C:\Users\1120804
+\Desktop\amway?予撠?\no
+de_modules\jest-circus\
+build\run.js:316:40)
+          at _runTest (
+C:\Users\1120804\Deskto
+p\amway?予撠?\node_modu
+les\jest-circus\build\r
+un.js:252:3)
+          at _runTestsF
+orDescribeBlock (C:\Use
+rs\1120804\Desktop\amwa
+y?予撠?\node_modules\je
+st-circus\build\run.js:
+126:9)
+          at _runTestsF
+orDescribeBlock (C:\Use
+rs\1120804\Desktop\amwa
+y?予撠?\node_modules\je
+st-circus\build\run.js:
+121:9)
+          at run (C:\Us
+ers\1120804\Desktop\amw
+ay?予撠?\node_modules\j
+est-circus\build\run.js
+:71:3)
+          at runAndTran
+sformResultsToJestForma
+t (C:\Users\1120804\Des
+ktop\amway?予撠?\node_m
+odules\jest-circus\buil
+d\legacy-code-todo-rewr
+ite\jestAdapterInit.js:
+122:21)
+          at jestAdapte
+r (C:\Users\1120804\Des
+ktop\amway?予撠?\node_m
+odules\jest-circus\buil
+d\legacy-code-todo-rewr
+ite\jestAdapter.js:79:1
+9)
+          at runTestInt
+ernal (C:\Users\1120804
+\Desktop\amway?予撠?\no
+de_modules\jest-runner\
+build\runTest.js:367:16
+)
+          at runTest (C
+:\Users\1120804\Desktop
+\amway?予撠?\node_modul
+es\jest-runner\build\ru
+nTest.js:444:34)
+
+    [0m [90m 16 |[39
+m         setRecords(da
+ta[33m.[39mrecords [
+33m||[39m [])[33m;[3
+9m
+     [90m 17 |[39m   
+    } [36mcatch[39m (
+error) {
+    [31m[1m>[22m[39
+m[90m 18 |[39m       
+  console[33m.[39merr
+or([32m"Failed to fetc
+h records:"[39m[33m,
+[39m error)[33m;[39m
+     [90m    |[39m   
+              [31m[1m
+^[22m[39m
+     [90m 19 |[39m   
+      [36mconst[39m c
+ached [33m=[39m local
+Storage[33m.[39mgetIt
+em([32m"analysis_recor
+ds"[39m)[33m;[39m
+     [90m 20 |[39m   
+      [36mif[39m (cac
+hed) {
+     [90m 21 |[39m   
+        setRecords([33
+mJSON[39m[33m.[39mpa
+rse(cached))[33m;[39m
+[0m
+
+      at error (pages/h
+istory.js:18:17)
+
+
+Test Suites: 1 failed, 
+7 passed, 8 total
+Tests:       4 failed, 
+33 passed, 37 total
+Snapshots:   0 total
+Time:        1.966 s
+Ran all test suites.

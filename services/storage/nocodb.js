@@ -1,43 +1,55 @@
+import { fetchWithTimeout } from "../../lib/fetchWithTimeout";
+
 export async function saveToNocoDB(data) {
-  const res = await fetch(
-    `${process.env.NOCODB_URL}`,
+  if (!process.env.NOCODB_URL || !process.env.NOCODB_TOKEN) {
+    throw new Error("NocoDB configuration is missing");
+  }
+
+  const response = await fetchWithTimeout(
+    process.env.NOCODB_URL,
     {
       method: "POST",
       headers: {
-        "xc-auth": process.env.NOCODB_TOKEN,
-        "Content-Type": "application/json"
+        "xc-token": process.env.NOCODB_TOKEN,
+        "Content-Type": "application/json",
       },
-      body: JSON.stringify(data)
-    }
+      body: JSON.stringify(data),
+    },
+    15000
   );
 
-  return res.json();
+  const payload = await response.json();
+
+  if (!response.ok) {
+    throw new Error(payload.message || `NocoDB API error: ${response.status}`);
+  }
+
+  return payload;
 }
 
-// 向後兼容
 export async function insertNocoDB(data) {
   return saveToNocoDB(data);
 }
 
 export async function queryNocoDB(recordId) {
   if (!process.env.NOCODB_URL || !process.env.NOCODB_TOKEN) {
-    throw new Error('NocoDB 環境變量未設定');
+    throw new Error("NocoDB configuration is missing");
   }
 
-  try {
-    const response = await fetch(`${process.env.NOCODB_URL}/${recordId}`, {
-      method: 'GET',
+  const response = await fetchWithTimeout(
+    `${process.env.NOCODB_URL}/${recordId}`,
+    {
+      method: "GET",
       headers: {
-        'xc-auth': process.env.NOCODB_TOKEN,
+        "xc-token": process.env.NOCODB_TOKEN,
       },
-    });
+    },
+    15000
+  );
 
-    if (!response.ok) {
-      throw new Error('NocoDB 查詢失敗');
-    }
-
-    return await response.json();
-  } catch (error) {
-    throw new Error(`NocoDB 查詢失敗: ${error.message}`);
+  if (!response.ok) {
+    throw new Error(`NocoDB query failed: ${response.status}`);
   }
+
+  return response.json();
 }

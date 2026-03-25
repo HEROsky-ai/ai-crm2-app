@@ -1,30 +1,30 @@
-import { useState } from 'react';
-import styles from '../styles/UploadForm.module.css';
+import { useState } from "react";
+import styles from "../styles/UploadForm.module.css";
 
 export default function UploadForm({ onSubmit, loading }) {
   const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    phone: '',
-    message: '',
+    name: "",
+    email: "",
+    phone: "",
+    message: "",
   });
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
+  const handleChange = (event) => {
+    const { name, value } = event.target;
     setFormData((prev) => ({
       ...prev,
       [name]: value,
     }));
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const handleSubmit = (event) => {
+    event.preventDefault();
     onSubmit(formData);
     setFormData({
-      name: '',
-      email: '',
-      phone: '',
-      message: '',
+      name: "",
+      email: "",
+      phone: "",
+      message: "",
     });
   };
 
@@ -43,7 +43,7 @@ export default function UploadForm({ onSubmit, loading }) {
       </div>
 
       <div className={styles.formGroup}>
-        <label htmlFor="email">郵箱</label>
+        <label htmlFor="email">Email</label>
         <input
           type="email"
           id="email"
@@ -66,7 +66,7 @@ export default function UploadForm({ onSubmit, loading }) {
       </div>
 
       <div className={styles.formGroup}>
-        <label htmlFor="message">信息</label>
+        <label htmlFor="message">訊息</label>
         <textarea
           id="message"
           name="message"
@@ -78,7 +78,7 @@ export default function UploadForm({ onSubmit, loading }) {
       </div>
 
       <button type="submit" disabled={loading}>
-        {loading ? '分析中...' : '提交分析'}
+        {loading ? "送出中..." : "送出分析"}
       </button>
     </form>
   );
