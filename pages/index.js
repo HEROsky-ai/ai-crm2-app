@@ -178,6 +178,7 @@ export default function Home() {
           
           <optgroup label="💎 付費高級模型 (最聰明)">
             <option value="anthropic/claude-3.5-sonnet">Claude 3.5 Sonnet (最強社交分析)</option>
+            <option value="google/gemini-2.0-flash">Gemini 2.0 Flash (極速穩定版)</option>
             <option value="google/gemini-1.5-pro">Gemini 1.5 Pro (Google最強大腦)</option>
             <option value="openai/gpt-4o">GPT-4o (全能綜合實力)</option>
             <option value="meta-llama/llama-3-70b-instruct">Llama 3 70B (強大且快速)</option>
